@@ -1,16 +1,70 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="BLE Network Capture">
+	<div class="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8">
+		<div class="space-y-4 max-w-2xl">
+			<h2 class="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
+				Web Bluetooth <span class="text-brand-600">Network Capture</span>
+			</h2>
+			<p class="text-xl text-slate-600">
+				Scan, Connect, and Inspect BLE Peripherals directly from your browser.
+				No installation required.
+			</p>
+		</div>
+
+		<div id="action-area" class="w-full max-w-md">
+			<noscript>
+				<div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+					JavaScript is required to use Web Bluetooth API.
+				</div>
+			</noscript>
+            
+            <div id="unsupported-msg" class="hidden p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200 text-left">
+                <strong>Browser Not Supported</strong><br/>
+                Your browser does not appear to support the Web Bluetooth API. 
+                Please try using Chrome, Edge, or Bluefy (on iOS).
+            </div>
+
+			<button
+				id="scan-btn"
+				class="hidden w-full px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed"
+			>
+				Scan & Connect
+			</button>
+            <p id="status-text" class="mt-4 text-slate-500 h-6"></p>
+		</div>
+	</div>
+</Layout>
+
+<script>
+    import { BluetoothManager } from '../lib/ble-client';
+
+    const scanBtn = document.getElementById('scan-btn') as HTMLButtonElement;
+    const unsupportedMsg = document.getElementById('unsupported-msg');
+    const statusText = document.getElementById('status-text');
+
+    // Progressive Enhancement: Check support
+    if (BluetoothManager.isSupported()) {
+        scanBtn?.classList.remove('hidden');
+    } else {
+        unsupportedMsg?.classList.remove('hidden');
+    }
+
+    // Event Handler
+    scanBtn?.addEventListener('click', async () => {
+        const manager = new BluetoothManager();
+        if (statusText) statusText.textContent = 'Scanning...';
+        
+        try {
+            const device = await manager.scan();
+            console.log('Device selected:', device);
+            if (statusText) statusText.textContent = `Selected: ${device.name || 'Unknown Device'} (${device.id})`;
+            
+            // TODO: Navigate to capture page or switch view
+        } catch (e) {
+            if (statusText) statusText.textContent = 'Scan cancelled or failed.';
+        }
+    });
+</script>
