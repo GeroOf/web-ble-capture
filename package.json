@@ -1,0 +1,25 @@
+{
+  "name": "web-ble-network-capture",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^4.1.3",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "preact": "^10.28.1",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "jsdom": "^27.4.0",
+    "oxlint": "^1.37.0",
+    "vitest": "^4.0.16"
+  }
+}
