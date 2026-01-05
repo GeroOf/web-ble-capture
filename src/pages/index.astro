@@ -1,16 +1,39 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Web BLE Capture">
+	<noscript>
+		<div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200 text-center my-8">
+			JavaScript is required to use Web Bluetooth API.
+		</div>
+	</noscript>
+
+    <div id="app-root">
+        <App client:only="preact" />
+    </div>
+
+    <!-- Fallback for environments where Preact fails or before hydration -->
+    <div id="unsupported-msg" class="hidden p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200 text-left max-w-md mx-auto mt-8">
+        <strong>Browser Not Supported</strong><br/>
+        Your browser does not appear to support the Web Bluetooth API. 
+        Please try using Chrome, Edge, or Bluefy (on iOS).
+    </div>
+</Layout>
+
+<script>
+    import { BluetoothManager } from '../lib/ble-client';
+    const unsupportedMsg = document.getElementById('unsupported-msg');
+
+    // Simple check outside of Preact to show message if needed
+    // Note: App component also handles logic, but this is a failsafe or could be integrated.
+    // Actually, App component checks support internally? 
+    // Let's rely on App component significantly, but we can verify support here too.
+    
+    if (!BluetoothManager.isSupported()) {
+        unsupportedMsg?.classList.remove('hidden');
+        const appRoot = document.getElementById('app-root');
+        if (appRoot) appRoot.style.display = 'none';
+    }
+</script>
