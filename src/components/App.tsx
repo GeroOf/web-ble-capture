@@ -93,7 +93,7 @@ export default function App() {
         <div class="flex flex-col items-center justify-center min-h-[50vh] space-y-8">
              <div class="space-y-4 max-w-2xl text-center">
                 <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
-                    Web Bluetooth <span class="text-brand-600">Network Capture</span>
+                    Web BLE <span class="text-brand-600">Capture</span>
                 </h2>
                 <p class="text-xl text-slate-600">
                     Scan, Connect, and Inspect BLE Peripherals directly from your browser.

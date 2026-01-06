@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本ドキュメントは Web アプリケーション(`BLE Network Capture`)向け AGENTS.md である
+本ドキュメントは Web アプリケーション(`Web BLE Capture`)向け AGENTS.md である
 
 ## 目的（Purpose）
 
