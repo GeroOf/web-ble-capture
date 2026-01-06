@@ -1,5 +1,6 @@
+import LogConsole from './LogConsole';
 import { BluetoothManager } from '../lib/ble-client';
-import { bleState, setStatus, setDevice, setError, resetState, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
+import { bleState, setStatus, setDevice, setError, resetState, addLog, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
 import DeviceExplorer from './DeviceExplorer';
 
 export default function App() {
@@ -48,11 +49,11 @@ export default function App() {
                 status: 'connected',
                 services: servicesData
             };
+             addLog({ timestamp: Date.now(), type: 'info', message: `Connected to ${device.name}` });
             
         } catch (e: any) {
             console.error(e);
             setError(e.message || 'Connection failed');
-            // resetState(); // Optional: do we reset on error? Maybe just show error.
         }
     };
 
@@ -65,16 +66,25 @@ export default function App() {
 
     if (status === 'connected') {
         return (
-            <div>
-                 <div class="mb-4 flex justify-between items-center">
-                    <button 
-                        onClick={handleDisconnect}
-                        class="text-sm text-red-600 hover:text-red-800 underline"
-                    >
-                        Disconnect
-                    </button>
+            <div class="h-[calc(100vh-8rem)] flex flex-col lg:flex-row gap-6">
+                 <div class="lg:w-1/3 flex flex-col gap-4 overflow-hidden">
+                     <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+                        <span class="font-bold text-slate-700">Connected</span>
+                        <button 
+                            onClick={handleDisconnect}
+                            class="text-sm px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
+                        >
+                            Disconnect
+                        </button>
+                     </div>
+                     <div class="flex-1 overflow-y-auto">
+                        <DeviceExplorer />
+                     </div>
                  </div>
-                 <DeviceExplorer />
+                 
+                 <div class="lg:w-2/3 flex flex-col overflow-hidden">
+                    <LogConsole />
+                 </div>
             </div>
         );
     }

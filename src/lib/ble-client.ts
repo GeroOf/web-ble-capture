@@ -67,4 +67,20 @@ export class BluetoothManager {
   async getCharacteristics(service: BluetoothRemoteGATTService): Promise<BluetoothRemoteGATTCharacteristic[]> {
     return await service.getCharacteristics();
   }
+
+  async startNotifications(
+    characteristic: BluetoothRemoteGATTCharacteristic, 
+    callback: (event: Event) => void
+  ): Promise<void> {
+    await characteristic.startNotifications();
+    characteristic.addEventListener('characteristicvaluechanged', callback);
+  }
+
+  async stopNotifications(
+    characteristic: BluetoothRemoteGATTCharacteristic, 
+    callback: (event: Event) => void
+  ): Promise<void> {
+    await characteristic.stopNotifications();
+    characteristic.removeEventListener('characteristicvaluechanged', callback);
+  }
 }
