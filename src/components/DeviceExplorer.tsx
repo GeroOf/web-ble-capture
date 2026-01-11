@@ -102,14 +102,14 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
     };
 
     return (
-        <div class="px-4 py-3 hover:bg-slate-50 transition-colors flex items-center justify-between group">
+        <div class="px-4 py-3 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between group gap-2">
             <div class="flex items-center gap-3">
-                 <div class={`w-2 h-2 rounded-full ${isSubscribed ? 'bg-green-500 animate-pulse' : 'bg-slate-300'}`}></div>
-                 <div class="font-mono text-sm text-slate-600" title={char.uuid}>{shortenUuid(char.uuid)}</div>
+                 <div class={`w-2 h-2 rounded-full shrink-0 ${isSubscribed ? 'bg-green-500 animate-pulse' : 'bg-slate-300'}`}></div>
+                 <div class="font-mono text-sm text-slate-600 truncate" title={char.uuid}>{shortenUuid(char.uuid)}</div>
             </div>
             
-            <div class="flex items-center gap-3">
-                <div class="flex gap-2">
+            <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+                <div class="flex gap-2 flex-wrap">
                     {char.properties.read && <Badge label="READ" color="blue" />}
                     {char.properties.write && <Badge label="WRITE" color="amber" />}
                     {char.properties.notify && <Badge label="NOTIFY" color="purple" />}
@@ -119,7 +119,7 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
                 {supportsNotify && (
                     <button
                         onClick={toggleSubscribe}
-                        class={`text-xs px-3 py-1 rounded border transition-colors ${
+                        class={`text-xs px-3 py-1 rounded border transition-colors shrink-0 ${
                             isSubscribed
                                 ? 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100'
                                 : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'

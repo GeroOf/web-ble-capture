@@ -1,3 +1,4 @@
+import { useState } from 'preact/hooks';
 import LogConsole from './LogConsole';
 import { BluetoothManager } from '../lib/ble-client';
 import { bleState, setStatus, setDevice, setError, resetState, addLog, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
@@ -5,14 +6,23 @@ import DeviceExplorer from './DeviceExplorer';
 
 export default function App() {
     const { status, error } = bleState.value;
+    const [customServices, setCustomServices] = useState('');
 
     const handleScan = async () => {
         const manager = new BluetoothManager();
         setStatus('connecting');
         
         try {
-            const device = await manager.scan();
+            const additionalServices = customServices
+                .split(',')
+                .map(s => s.trim())
+                .filter(s => s.length > 0);
+
+            const device = await manager.scan(additionalServices);
             setDevice(device);
+            
+            // Handle disconnection
+            device.addEventListener('gattserverdisconnected', handleDisconnectEvent);
             
             // Connect
             const server = await manager.connect(device);
@@ -57,12 +67,22 @@ export default function App() {
         }
     };
 
+    const handleDisconnectEvent = () => {
+        addLog({ timestamp: Date.now(), type: 'info', message: 'Device disconnected' });
+        resetState();
+    };
+
     const handleDisconnect = () => {
         if (bleState.value.device?.gatt?.connected) {
             bleState.value.device.gatt.disconnect();
         }
-        resetState();
+        // State reset will happen via event listener or we force it if needed, 
+        // but event listener is safer for all cases (e.g. out of range).
+        // However, if we manually disconnect, the event fires too.
     };
+
+    // Cleanup listener on unmount if needed, though mostly handled by state reset
+    // managing the device reference.
 
     if (status === 'connected') {
         return (
@@ -102,11 +122,24 @@ export default function App() {
 
             <div class="w-full max-w-md space-y-4">
                 {error && (
-                    <div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
-                        {error}
+                    <div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200 flex justify-between items-start">
+                        <span>{error}</span>
+                        <button onClick={() => setError('')} class="ml-2 text-red-500 hover:text-red-700">&times;</button>
                     </div>
                 )}
                 
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Additional Service UUIDs (Optional)</label>
+                    <input 
+                        type="text" 
+                        value={customServices}
+                        onInput={(e) => setCustomServices(e.currentTarget.value)}
+                        placeholder="e.g. 1234, 0000aaaa-0000..."
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-shadow"
+                    />
+                    <p class="text-xs text-slate-500">Comma separated full 128-bit UUIDs or 16-bit aliases.</p>
+                </div>
+
                 <button
                     onClick={handleScan}
                     disabled={status === 'connecting'}
