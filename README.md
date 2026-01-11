@@ -1,43 +1,55 @@
-# Astro Starter Kit: Minimal
+# Web BLE Network Capture
 
-```sh
-npm create astro@latest -- --template minimal
-```
+A web-based tool to capture and analyze BLE (Bluetooth Low Energy) network traffic.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Features
 
-## 🚀 Project Structure
+- **Scan & Connect**: Discover and connect to nearby BLE devices using the Web Bluetooth API.
+- **Service & Characteristic Discovery**: Explore available services and characteristics on connected devices.
+- **Analyze Traffic**: (Add specific analysis features here if implemented, e.g., read/write/notify)
+- **Export Data**: (Add export features if implemented)
 
-Inside of your Astro project, you'll see the following folders and files:
+## Getting Started
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### Prerequisites
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- A modern browser with Web Bluetooth API support (Chrome, Edge, Opera, etc.).
+- A BLE-capable device (computer or smartphone).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Installation
 
-Any static assets, like images, can be placed in the `public/` directory.
+No installation is required to use the hosted version.
+To run locally:
 
-## 🧞 Commands
+1. Clone the repository:
 
-All commands are run from the root of the project, from a terminal:
+   ```sh
+   git clone https://github.com/GeroOf/web-ble-capture.git
+   ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+2. Install dependencies:
 
-## 👀 Want to learn more?
+   ```sh
+   npm install
+   ```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+3. Start the development server:
+
+   ```sh
+   npm run dev
+   ```
+
+## Usage
+
+1. Open the application in your browser.
+2. Click the "Scan" button to search for devices.
+3. Select a device to connect.
+4. Interact with the device via the UI.
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
