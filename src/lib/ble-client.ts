@@ -32,9 +32,15 @@ export class BluetoothManager {
             'generic_attribute',
             'battery_service',
             'device_information',
-            'environmental_sensing' 
+            'environmental_sensing',
+            'deadf154-0000-0000-0000-0000deadf154'
             // Add more common UUIDs if we want to support them "out of the box"
-        ]
+        ],
+        // filters: [
+        //   {
+        //     namePrefix: 'iPhone'
+        //   }
+        // ]
       });
       return device;
     } catch (error) {
