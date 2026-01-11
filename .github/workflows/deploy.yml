@@ -18,6 +18,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install, build, and test
+        env:
+          SITE: "https://geroof.github.io"
+          BASE: "/web-ble-capture"
         run: |
           npm ci
           npm run build
