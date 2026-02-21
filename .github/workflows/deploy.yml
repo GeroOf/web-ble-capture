@@ -21,6 +21,8 @@ jobs:
         env:
           SITE: "https://geroof.github.io"
           BASE: "/web-ble-capture"
+          PUBLIC_GA_ID: ${{ secrets.PUBLIC_GA_ID }}
+          PUBLIC_GSC_VERIFICATION: ${{ secrets.PUBLIC_GSC_VERIFICATION }}
         run: |
           npm ci
           npm run build
