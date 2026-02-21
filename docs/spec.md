@@ -43,3 +43,8 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 
 - サーバー通信なし。
 - データはページリロードで消失する (永続化要件なし)。
+
+## 分析と SEO (Analytics & SEO)
+
+- **Google Analytics**: `PUBLIC_GA_ID` 環境変数が設定されている場合のみ、トラッキングコードを出力する。
+- **Google Search Console**: `PUBLIC_GSC_VERIFICATION` 環境変数が設定されている場合のみ、所有権確認用の meta タグを出力する。
