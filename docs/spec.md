@@ -47,6 +47,8 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 ## 分析と SEO (Analytics & SEO)
 
 - **Google Analytics**: `PUBLIC_GA_ID` 環境変数が設定されている場合のみ、トラッキングコードを出力する。
+  - 基本操作のアクションを送信する（`scan_device`, `connect_device`, `disconnect_device`, `subscribe_characteristic`, `unsubscribe_characteristic`）。
+  - GAが遮断された場合でもエラーによる主要処理の中断を防ぐ実装とする。
 - **Google Search Console**: `PUBLIC_GSC_VERIFICATION` 環境変数が設定されている場合のみ、所有権確認用の meta タグを出力する。
 - **基本メタ情報**:
   - Title: `Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ`
