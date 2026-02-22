@@ -2,23 +2,55 @@
 import '../styles/global.css';
 
 interface Props {
-	title: string;
+	title?: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const { 
+	title = "Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ",
+	description = "ブラウザだけで動作するインストール不要の軽量BLE通信キャプチャツール。Web Bluetooth APIを利用してPeripheralデバイスのGATT通信(Notify/Read等)を解析・表示します。"
+} = Astro.props;
+
 const gaId = import.meta.env.PUBLIC_GA_ID;
 const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
+const canonicalURL = "https://geroof.github.io/web-ble-capture/";
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	"name": "Web BLE Capture",
+	"url": canonicalURL,
+	"description": description,
+	"applicationCategory": "DeveloperApplication",
+	"operatingSystem": "Any with Web Bluetooth support"
+};
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Web BLE Capture" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="Web Bluetooth, BLEキャプチャ, ネットワークキャプチャ, ブラウザ完結, Web BLE Capture, GATT" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<script type="application/ld+json" is:inline>
+			{JSON.stringify(structuredData)}
+		</script>
 		{
 			gscVerification && (
 				<meta name="google-site-verification" content={gscVerification} />
@@ -27,7 +59,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 		{
 			gaId && (
 				<>
-					<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+					<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
 					<script is:inline define:vars={{ gaId }}>
 						window.dataLayer = window.dataLayer || [];
 						function gtag() {
