@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import LogConsole from './LogConsole';
 import { BluetoothManager } from '../lib/ble-client';
 import { bleState, setStatus, setDevice, setError, resetState, addLog, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
+import { trackEvent } from '../lib/analytics';
 import DeviceExplorer from './DeviceExplorer';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
                 .filter(s => s.length > 0);
 
             const device = await manager.scan(additionalServices);
+            trackEvent('scan_device');
             setDevice(device);
             
             // Handle disconnection
@@ -60,6 +62,7 @@ export default function App() {
                 services: servicesData
             };
              addLog({ timestamp: Date.now(), type: 'info', message: `Connected to ${device.name}` });
+             trackEvent('connect_device');
             
         } catch (e: any) {
             console.error(e);
@@ -75,6 +78,7 @@ export default function App() {
     const handleDisconnect = () => {
         if (bleState.value.device?.gatt?.connected) {
             bleState.value.device.gatt.disconnect();
+            trackEvent('disconnect_device');
         }
         // State reset will happen via event listener or we force it if needed, 
         // but event listener is safer for all cases (e.g. out of range).

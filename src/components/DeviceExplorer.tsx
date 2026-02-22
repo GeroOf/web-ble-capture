@@ -60,6 +60,7 @@ function ServiceItem({ service }: { service: ServiceInfo }) {
 
 import { BluetoothManager } from '../lib/ble-client';
 import { addLog, setSubscriptionStatus, setError } from '../lib/store';
+import { trackEvent } from '../lib/analytics';
 
 function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
     const { activeSubscriptions } = bleState.value;
@@ -77,10 +78,12 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
                 await manager.stopNotifications(char.instance, handleNotification);
                 setSubscriptionStatus(char.uuid, false);
                 addLog({ timestamp: Date.now(), type: 'info', message: `Unsubscribed from ${shortenUuid(char.uuid)}` });
+                trackEvent('unsubscribe_characteristic', { char_uuid: char.uuid });
             } else {
                 await manager.startNotifications(char.instance, handleNotification);
                 setSubscriptionStatus(char.uuid, true);
                 addLog({ timestamp: Date.now(), type: 'info', message: `Subscribed to ${shortenUuid(char.uuid)}` });
+                trackEvent('subscribe_characteristic', { char_uuid: char.uuid });
             }
         } catch (e: any) {
             console.error(e);

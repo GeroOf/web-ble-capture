@@ -47,4 +47,14 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 ## 分析と SEO (Analytics & SEO)
 
 - **Google Analytics**: `PUBLIC_GA_ID` 環境変数が設定されている場合のみ、トラッキングコードを出力する。
+  - 基本操作のアクションを送信する（`scan_device`, `connect_device`, `disconnect_device`, `subscribe_characteristic`, `unsubscribe_characteristic`）。
+  - GAが遮断された場合でもエラーによる主要処理の中断を防ぐ実装とする。
 - **Google Search Console**: `PUBLIC_GSC_VERIFICATION` 環境変数が設定されている場合のみ、所有権確認用の meta タグを出力する。
+- **基本メタ情報**:
+  - Title: `Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ`
+  - Description: ブラウザだけで動作するインストール不要の軽量BLE通信キャプチャツール。Web Bluetooth APIを利用してPeripheralデバイスのGATT通信を解析します。
+  - Keywords: `Web Bluetooth, BLEキャプチャ, ネットワークキャプチャ, ブラウザ完結, Web BLE Capture, GATT`
+- **クローラビリティ**:
+  - `public/robots.txt` および `public/sitemap.xml` を静的配置し、クローラーへのインデックス登録をサポートする。
+- **構造化データ**:
+  - JSON-LD を用いて `WebApplication` として構造化データを定義し、検索エンジンでの表示を最適化する。

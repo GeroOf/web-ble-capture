@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geroof.github.io/web-ble-capture/sitemap.xml
