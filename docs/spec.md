@@ -17,11 +17,14 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 
 ## 画面構成
 
-1. **トップページ (/)**
-   - `/ja/` へ遷移する静的リダイレクトページ
-   - JavaScript 非対応でも `/ja/` へ移動できるリンクを表示
+1. **英語トップページ (`/`)**
+   - 英語版の正規 URL
+   - ヘッダー: アプリタイトル、GitHub リンク、言語切り替え
+   - メインエリア:
+     - 「Scan & Connect」CTA
+     - Web Bluetooth API 対応ブラウザに関する注意書き
 
-2. **ロケール別トップページ (`/ja/`, `/en/`)**
+2. **日本語トップページ (`/ja/`)**
    - ヘッダー: アプリタイトル、GitHub リンク、言語切り替え
    - メインエリア:
      - 「スキャンして接続」相当の CTA
@@ -69,7 +72,7 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 ## 多言語化 (i18n)
 
 - 対応言語は **日本語 (`ja`)** と **英語 (`en`)** の 2 言語とする。
-- 公開 URL は `/ja/` と `/en/` を正とし、ルート `/` は `/ja/` へ固定遷移する。
+- 公開 URL は **英語 `/`**、**日本語 `/ja/`** を正とする。
 - 初期 HTML は各ロケールごとに静的生成し、クライアントサイドの言語自動判定は行わない。
 - `<html lang>`、title、description、keywords、OGP、Twitter Card、JSON-LD、`hreflang` はロケールごとに出し分ける。
 - 画面文言、noscript 文言、非対応ブラウザ向けメッセージ、モーダル文言、ボタン文言を多言語化対象とする。
@@ -90,6 +93,6 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
   - 英語 Description: Lightweight BLE traffic capture running entirely in the browser with Web Bluetooth API support and no backend communication.
   - Keywords: `Web Bluetooth, BLE capture, BLEキャプチャ, network capture, browser-based, Web BLE Capture, GATT`
 - **クローラビリティ**:
-  - `public/robots.txt` および `public/sitemap.xml` を静的配置し、`/ja/` と `/en/` のインデックス登録をサポートする。
+  - `public/robots.txt` および `public/sitemap.xml` を静的配置し、`/` と `/ja/` のインデックス登録をサポートする。
 - **構造化データ**:
   - JSON-LD を用いて `WebApplication` として構造化データを定義し、検索エンジンでの表示を最適化する。

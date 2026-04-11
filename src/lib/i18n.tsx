@@ -221,7 +221,7 @@ export function getLocaleMeta(locale: Locale): LocaleMeta {
 }
 
 export function getLocalePath(locale: Locale): string {
-  return `/${locale}/`;
+  return locale === "en" ? "/" : "/ja/";
 }
 
 export function translate(
