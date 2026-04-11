@@ -1,13 +1,22 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import LogConsole from './LogConsole';
 import { BluetoothManager } from '../lib/ble-client';
 import { bleState, setStatus, setDevice, setError, resetState, addLog, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
 import { trackEvent } from '../lib/analytics';
 import DeviceExplorer from './DeviceExplorer';
+import HistoryModal from './HistoryModal';
+import AliasManagerModal from './AliasManagerModal';
+import { localPrefs } from '../lib/storage';
 
 export default function App() {
     const { status, error } = bleState.value;
-    const [customServices, setCustomServices] = useState('');
+    const [customServices, setCustomServices] = useState(localPrefs.customServices);
+    const [showHistory, setShowHistory] = useState(false);
+    const [showAliases, setShowAliases] = useState(false);
+
+    useEffect(() => {
+        localPrefs.customServices = customServices;
+    }, [customServices]);
 
     const handleScan = async () => {
         const manager = new BluetoothManager();
@@ -90,16 +99,24 @@ export default function App() {
 
     if (status === 'connected') {
         return (
-            <div class="h-[calc(100vh-8rem)] flex flex-col lg:flex-row gap-6">
+            <div class="h-[calc(100vh-8rem)] flex flex-col lg:flex-row gap-6 relative">
                  <div class="lg:w-1/3 flex flex-col gap-4 overflow-hidden">
                      <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
                         <span class="font-bold text-slate-700">Connected</span>
-                        <button 
-                            onClick={handleDisconnect}
-                            class="text-sm px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
-                        >
-                            Disconnect
-                        </button>
+                        <div class="flex gap-2">
+                            <button 
+                                onClick={() => setShowHistory(true)}
+                                class="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+                            >
+                                History
+                            </button>
+                            <button 
+                                onClick={handleDisconnect}
+                                class="text-sm px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
+                            >
+                                Disconnect
+                            </button>
+                        </div>
                      </div>
                      <div class="flex-1 overflow-y-auto">
                         <DeviceExplorer />
@@ -109,6 +126,7 @@ export default function App() {
                  <div class="lg:w-2/3 flex flex-col overflow-hidden">
                     <LogConsole />
                  </div>
+                 {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
             </div>
         );
     }
@@ -133,7 +151,15 @@ export default function App() {
                 )}
                 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Additional Service UUIDs (Optional)</label>
+                    <div class="flex justify-between items-end">
+                        <label class="block text-sm font-medium text-gray-700">Additional Service UUIDs (Optional)</label>
+                        <button 
+                            onClick={() => setShowAliases(true)}
+                            class="text-xs text-brand-600 hover:text-brand-800 transition-colors bg-brand-50 px-2 py-0.5 rounded"
+                        >
+                            Manage Aliases
+                        </button>
+                    </div>
                     <input 
                         type="text" 
                         value={customServices}
@@ -151,7 +177,17 @@ export default function App() {
                 >
                     {status === 'connecting' ? 'Connecting...' : 'Scan & Connect'}
                 </button>
+                
+                <button
+                    onClick={() => setShowHistory(true)}
+                    class="w-full px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-lg font-semibold rounded-xl shadow transition-all mt-4"
+                >
+                    View Session History
+                </button>
             </div>
+            
+            {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
+            {showAliases && <AliasManagerModal onClose={() => setShowAliases(false)} />}
         </div>
     );
 }

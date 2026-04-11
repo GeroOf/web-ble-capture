@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'preact/hooks';
 import { bleState, clearLogs, type LogEntry } from '../lib/store';
+import { formatUuid, toHex, toAscii } from '../lib/utils';
 
 export default function LogConsole() {
     const { logs } = bleState.value;
@@ -90,7 +91,7 @@ function LogLine({ entry }: { entry: LogEntry }) {
                 {entry.charUuid && (
                     <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-0.5">
                          <span class="text-slate-400 shrink-0 select-all" title={entry.charUuid}>
-                            {shortenUuid(entry.charUuid)}:
+                            {formatUuid(entry.charUuid)}:
                         </span>
                         {entry.data && (
                             <div class="flex gap-4 items-center">
@@ -106,32 +107,4 @@ function LogLine({ entry }: { entry: LogEntry }) {
             </div>
         </div>
     );
-}
-
-// Helpers
-function shortenUuid(uuid: string) {
-    if (uuid.startsWith('0000') && uuid.endsWith('-0000-1000-8000-00805f9b34fb')) {
-        return '0x' + uuid.substring(4, 8).toUpperCase();
-    }
-    return uuid.substring(0, 8) + '...';
-}
-
-function toHex(data: DataView) {
-    const arr = new Uint8Array(data.buffer);
-    return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join(' ').toUpperCase();
-}
-
-function toAscii(data: DataView) {
-    const arr = new Uint8Array(data.buffer);
-    let str = '';
-    for (let i = 0; i < arr.length; i++) {
-        const code = arr[i];
-        // Show printable ASCII (32-126)
-        if (code >= 32 && code <= 126) {
-            str += String.fromCharCode(code);
-        } else {
-            str += '.';
-        }
-    }
-    return str;
 }

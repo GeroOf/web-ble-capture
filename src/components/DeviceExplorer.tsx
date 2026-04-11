@@ -1,4 +1,8 @@
 import { bleState, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
+import { BluetoothManager } from '../lib/ble-client';
+import { addLog, setSubscriptionStatus, setError } from '../lib/store';
+import { trackEvent } from '../lib/analytics';
+import { formatUuid } from '../lib/utils';
 
 export default function DeviceExplorer() {
     const { device, services, status } = bleState.value;
@@ -46,7 +50,7 @@ function ServiceItem({ service }: { service: ServiceInfo }) {
     return (
         <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
             <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                <div class="font-mono text-sm text-slate-700 font-medium">{service.uuid}</div>
+                <div class="font-mono text-sm text-slate-700 font-medium">{formatUuid(service.uuid)}</div>
                 <div class="text-xs text-slate-400">Service</div>
             </div>
             <div class="divide-y divide-slate-100">
@@ -57,10 +61,6 @@ function ServiceItem({ service }: { service: ServiceInfo }) {
         </div>
     );
 }
-
-import { BluetoothManager } from '../lib/ble-client';
-import { addLog, setSubscriptionStatus, setError } from '../lib/store';
-import { trackEvent } from '../lib/analytics';
 
 function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
     const { activeSubscriptions } = bleState.value;
@@ -77,12 +77,12 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
             if (isSubscribed) {
                 await manager.stopNotifications(char.instance, handleNotification);
                 setSubscriptionStatus(char.uuid, false);
-                addLog({ timestamp: Date.now(), type: 'info', message: `Unsubscribed from ${shortenUuid(char.uuid)}` });
+                addLog({ timestamp: Date.now(), type: 'info', message: `Unsubscribed from ${formatUuid(char.uuid)}` });
                 trackEvent('unsubscribe_characteristic', { char_uuid: char.uuid });
             } else {
                 await manager.startNotifications(char.instance, handleNotification);
                 setSubscriptionStatus(char.uuid, true);
-                addLog({ timestamp: Date.now(), type: 'info', message: `Subscribed to ${shortenUuid(char.uuid)}` });
+                addLog({ timestamp: Date.now(), type: 'info', message: `Subscribed to ${formatUuid(char.uuid)}` });
                 trackEvent('subscribe_characteristic', { char_uuid: char.uuid });
             }
         } catch (e: any) {
@@ -108,7 +108,7 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
         <div class="px-4 py-3 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between group gap-2">
             <div class="flex items-center gap-3">
                  <div class={`w-2 h-2 rounded-full shrink-0 ${isSubscribed ? 'bg-green-500 animate-pulse' : 'bg-slate-300'}`}></div>
-                 <div class="font-mono text-sm text-slate-600 truncate" title={char.uuid}>{shortenUuid(char.uuid)}</div>
+                 <div class="font-mono text-sm text-slate-600 truncate" title={char.uuid}>{formatUuid(char.uuid)}</div>
             </div>
             
             <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
@@ -134,14 +134,6 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
             </div>
         </div>
     );
-}
-
-// Helper (duplicated for now, could be shared)
-function shortenUuid(uuid: string) {
-    if (uuid.startsWith('0000') && uuid.endsWith('-0000-1000-8000-00805f9b34fb')) {
-        return '0x' + uuid.substring(4, 8).toUpperCase();
-    }
-    return uuid.substring(0, 8) + '...';
 }
 
 function Badge({ label, color }: { label: string, color: 'blue' | 'amber' | 'purple' | 'indigo' }) {
