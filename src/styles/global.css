@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', 'Roboto', 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', 'Arial', sans-serif;
-  --font-mono: 'Fira Code', 'Ui-Monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", monospace;
+  --font-sans:
+    "Inter", "Roboto", "Helvetica Neue", "Arial Nova", "Nimbus Sans", "Arial", sans-serif;
+  --font-mono:
+    "Fira Code", "Ui-Monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono",
+    "Courier New", monospace;
 
   --color-brand-50: #eff6ff;
   --color-brand-100: #dbeafe;

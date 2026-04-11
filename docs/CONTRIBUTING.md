@@ -7,28 +7,28 @@ Thank you for your interest in contributing! We welcome bug reports, feature req
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** locally:
 
-    ```sh
-    git clone https://github.com/YOUR_USERNAME/web-ble-capture.git
-    cd web-ble-capture
-    ```
+   ```sh
+   git clone https://github.com/YOUR_USERNAME/web-ble-capture.git
+   cd web-ble-capture
+   ```
 
 3. **Create a new branch** for your feature or fix:
 
-    ```sh
-    git checkout -b feature/my-new-feature
-    ```
+   ```sh
+   git checkout -b feature/my-new-feature
+   ```
 
 4. **Make your changes** and commit them:
 
-    ```sh
-    git commit -m "Add some feature"
-    ```
+   ```sh
+   git commit -m "Add some feature"
+   ```
 
 5. **Push to your fork**:
 
-    ```sh
-    git push origin feature/my-new-feature
-    ```
+   ```sh
+   git push origin feature/my-new-feature
+   ```
 
 6. **Open a Pull Request** on the original repository.
 
