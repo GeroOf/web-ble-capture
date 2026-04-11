@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { translate, type Locale } from '../../lib/i18n';
 
 export function getStaticPaths() {
-	return [{ params: { locale: 'ja' } }, { params: { locale: 'en' } }];
+	return [{ params: { locale: 'ja' } }];
 }
 
 const locale = Astro.params.locale as Locale;

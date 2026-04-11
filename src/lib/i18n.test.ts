@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   MESSAGES,
   getLocaleMeta,
+  getLocalePath,
   resolveLocalizedText,
   SUPPORTED_LOCALES,
   translate,
@@ -45,5 +46,10 @@ describe("i18n", () => {
   it("interpolates parameterized labels", () => {
     expect(translate("ja", "history.logCount", { count: 5 })).toBe("5 件");
     expect(translate("en", "history.logCount", { count: 5 })).toBe("5 logs");
+  });
+
+  it("maps locale URLs to root english and /ja japanese", () => {
+    expect(getLocalePath("en")).toBe("/");
+    expect(getLocalePath("ja")).toBe("/ja/");
   });
 });
