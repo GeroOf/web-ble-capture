@@ -1,60 +1,26 @@
 import { signal } from '@preact/signals';
+import { logStorage } from './storage';
+import type { BLEState, BluetoothStatus, LogEntry } from './types';
 
-export type BluetoothStatus = 'disconnected' | 'connecting' | 'connected' | 'error';
+// Re-export types for consumer convenience
+export type { BluetoothStatus, CharacteristicInfo, ServiceInfo, LogEntry, BLEState, LogEntryType } from './types';
 
-export interface CharacteristicInfo {
-    uuid: string;
-    properties: {
-        read: boolean;
-        write: boolean;
-        notify: boolean;
-        indicate: boolean;
-    };
-    instance: BluetoothRemoteGATTCharacteristic | null; // Non-serializable, reference only
-}
-
-export interface ServiceInfo {
-    uuid: string;
-    characteristics: CharacteristicInfo[];
-}
-
-export interface LogEntry {
-    timestamp: number;
-    type: 'notification' | 'read' | 'write' | 'info' | 'error';
-    serviceUuid?: string;
-    charUuid?: string;
-    data?: DataView; // We will store raw data
-    message?: string;
-}
-
-export interface BLEState {
-    status: BluetoothStatus;
-    device: BluetoothDevice | null;
-    services: ServiceInfo[];
-    error: string | null;
-    logs: LogEntry[];
-    activeSubscriptions: Set<string>; // Set of characteristic UUIDs
-}
-
-export const bleState = signal<BLEState>({
+/** ステートの初期値（resetState と共有） */
+const INITIAL_STATE: BLEState = {
     status: 'disconnected',
     device: null,
     services: [],
     error: null,
     logs: [],
-    activeSubscriptions: new Set()
-});
+    activeSubscriptions: new Set(),
+    sessionId: null
+};
+
+export const bleState = signal<BLEState>({ ...INITIAL_STATE });
 
 // Helper actions
 export const resetState = () => {
-    bleState.value = {
-        status: 'disconnected',
-        device: null,
-        services: [],
-        error: null,
-        logs: [],
-        activeSubscriptions: new Set()
-    };
+    bleState.value = { ...INITIAL_STATE, activeSubscriptions: new Set() };
 };
 
 export const setStatus = (status: BluetoothStatus) => {
@@ -67,7 +33,9 @@ export const setError = (error: string) => {
 };
 
 export const setDevice = (device: BluetoothDevice) => {
-    bleState.value = { ...bleState.value, device };
+    const sessionId = `${Date.now()}_${device.name || 'Unknown'}`;
+    logStorage.startSession(sessionId, device.name || 'Unknown');
+    bleState.value = { ...bleState.value, device, sessionId };
 };
 
 export const addLog = (entry: LogEntry) => {
@@ -76,6 +44,13 @@ export const addLog = (entry: LogEntry) => {
     if (newLogs.length > 1000) {
         newLogs.shift();
     }
+
+    // Save to IndexedDB
+    const { sessionId } = bleState.value;
+    if (sessionId) {
+        logStorage.addLog(sessionId, entry).catch(e => console.error("DB Error", e));
+    }
+
     bleState.value = { ...bleState.value, logs: newLogs };
 };
 
