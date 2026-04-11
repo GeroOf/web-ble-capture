@@ -1,39 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import App from '../components/App';
+const redirectPath = `${import.meta.env.BASE_URL}ja/`;
 ---
 
-<Layout>
-	<noscript>
-		<div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200 text-center my-8">
-			JavaScript is required to use Web Bluetooth API.
-		</div>
-	</noscript>
-
-    <div id="app-root">
-        <App client:only="preact" />
-    </div>
-
-    <!-- Fallback for environments where Preact fails or before hydration -->
-    <div id="unsupported-msg" class="hidden p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200 text-left max-w-md mx-auto mt-8">
-        <strong>Browser Not Supported</strong><br/>
-        Your browser does not appear to support the Web Bluetooth API. 
-        Please try using Chrome, Edge, or Bluefy (on iOS).
-    </div>
-</Layout>
-
-<script>
-    import { BluetoothManager } from '../lib/ble-client';
-    const unsupportedMsg = document.getElementById('unsupported-msg');
-
-    // Simple check outside of Preact to show message if needed
-    // Note: App component also handles logic, but this is a failsafe or could be integrated.
-    // Actually, App component checks support internally? 
-    // Let's rely on App component significantly, but we can verify support here too.
-    
-    if (!BluetoothManager.isSupported()) {
-        unsupportedMsg?.classList.remove('hidden');
-        const appRoot = document.getElementById('app-root');
-        if (appRoot) appRoot.style.display = 'none';
-    }
-</script>
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="refresh" content={`0;url=${redirectPath}`} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>日本語ページへ移動しています</title>
+		<meta name="robots" content="noindex" />
+	</head>
+	<body>
+		<main>
+			<p>日本語ページへ移動しています。</p>
+			<p><a href={redirectPath}>自動で移動しない場合はこちら</a></p>
+		</main>
+	</body>
+</html>

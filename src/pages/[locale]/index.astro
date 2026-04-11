@@ -1,0 +1,44 @@
+---
+import App from '../../components/App';
+import Layout from '../../layouts/Layout.astro';
+import { translate, type Locale } from '../../lib/i18n';
+
+export function getStaticPaths() {
+	return [{ params: { locale: 'ja' } }, { params: { locale: 'en' } }];
+}
+
+const locale = Astro.params.locale as Locale;
+const unsupportedTitle = translate(locale, 'fallback.browserNotSupportedTitle');
+const unsupportedBody = translate(locale, 'fallback.browserNotSupportedBody');
+const unsupportedHint = translate(locale, 'fallback.browserNotSupportedHint');
+---
+
+<Layout locale={locale} pathname={`/${locale}/`}>
+	<noscript>
+		<div class="my-8 rounded-lg border border-red-200 bg-red-50 p-4 text-center text-red-700">
+			{translate(locale, 'fallback.jsRequired')}
+		</div>
+	</noscript>
+
+    <div id="app-root">
+        <App client:only="preact" locale={locale} />
+    </div>
+
+    <div id="unsupported-msg" class="hidden p-4 bg-amber-50 text-amber-800 rounded-lg border border-amber-200 text-left max-w-md mx-auto mt-8">
+        <strong>{unsupportedTitle}</strong><br />
+        {unsupportedBody}
+        <br />
+        {unsupportedHint}
+    </div>
+</Layout>
+
+<script>
+    import { BluetoothManager } from '../../lib/ble-client';
+    const unsupportedMsg = document.getElementById('unsupported-msg');
+
+    if (!BluetoothManager.isSupported()) {
+        unsupportedMsg?.classList.remove('hidden');
+        const appRoot = document.getElementById('app-root');
+        if (appRoot) appRoot.style.display = 'none';
+    }
+</script>

@@ -7,15 +7,15 @@
  * @param eventParams Optional parameters to send with the event
  */
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
-    try {
-        if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
-            (window as any).gtag('event', eventName, eventParams);
-        } else {
-            // For development / debugging or when blocked
-            // console.debug(`[Analytics] Mock event tracked: ${eventName}`, eventParams);
-        }
-    } catch (error) {
-        // Silently catch errors related to analytics to avoid interrupting the main flow
-        console.warn(`[Analytics] Failed to track event: ${eventName}`, error);
+  try {
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      (window as any).gtag("event", eventName, eventParams);
+    } else {
+      // For development / debugging or when blocked
+      // console.debug(`[Analytics] Mock event tracked: ${eventName}`, eventParams);
     }
+  } catch (error) {
+    // Silently catch errors related to analytics to avoid interrupting the main flow
+    console.warn(`[Analytics] Failed to track event: ${eventName}`, error);
+  }
 }

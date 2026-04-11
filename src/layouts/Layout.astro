@@ -1,19 +1,28 @@
 ---
 import '../styles/global.css';
+import { getLocaleMeta, getLocalePath, SUPPORTED_LOCALES, type Locale } from '../lib/i18n';
 
 interface Props {
+	locale: Locale;
+	pathname: string;
 	title?: string;
 	description?: string;
 }
 
 const { 
-	title = "Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ",
-	description = "ブラウザだけで動作するインストール不要の軽量BLE通信キャプチャツール。Web Bluetooth APIを利用してPeripheralデバイスのGATT通信(Notify/Read等)を解析・表示します。"
+	locale,
+	pathname,
+	title = getLocaleMeta(locale).title,
+	description = getLocaleMeta(locale).description,
 } = Astro.props;
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
 const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
-const canonicalURL = "https://geroof.github.io/web-ble-capture/";
+const siteOrigin = (Astro.site?.toString() ?? 'https://geroof.github.io/').replace(/\/$/, '');
+const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
+const keywordContent = getLocaleMeta(locale).keywords;
+const canonicalURL = `${siteOrigin}${basePath}${pathname}`;
+const localeHref = (targetLocale: Locale) => `${basePath}${getLocalePath(targetLocale)}`;
 
 const structuredData = {
 	"@context": "https://schema.org",
@@ -21,13 +30,14 @@ const structuredData = {
 	"name": "Web BLE Capture",
 	"url": canonicalURL,
 	"description": description,
+	"inLanguage": locale,
 	"applicationCategory": "DeveloperApplication",
 	"operatingSystem": "Any with Web Bluetooth support"
 };
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={locale}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -36,8 +46,18 @@ const structuredData = {
 		
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="keywords" content="Web Bluetooth, BLEキャプチャ, ネットワークキャプチャ, ブラウザ完結, Web BLE Capture, GATT" />
+		<meta name="keywords" content={keywordContent} />
 		<link rel="canonical" href={canonicalURL} />
+		{
+			SUPPORTED_LOCALES.map((altLocale) => (
+				<link
+					rel="alternate"
+					hreflang={altLocale}
+					href={`${siteOrigin}${basePath}${getLocalePath(altLocale)}`}
+				/>
+			))
+		}
+		<link rel="alternate" hreflang="x-default" href={`${siteOrigin}${basePath}${getLocalePath('ja')}`} />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
@@ -82,7 +102,27 @@ const structuredData = {
                         </svg>
                         <h1 class="text-xl font-bold text-slate-900 tracking-tight">Web BLE Capture</h1>
                     </div>
-                    <nav class="flex gap-4">
+                    <nav class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 rounded-full bg-slate-100 p-1 text-xs font-semibold">
+                            {
+                                SUPPORTED_LOCALES.map((altLocale) => {
+                                    const isCurrent = altLocale === locale;
+                                    return (
+                                        <a
+                                            href={localeHref(altLocale)}
+                                            aria-current={isCurrent ? 'page' : undefined}
+                                            class={`rounded-full px-2.5 py-1 transition-colors ${
+                                                isCurrent
+                                                    ? 'bg-brand-600 text-white'
+                                                    : 'text-slate-600 hover:bg-white hover:text-slate-900'
+                                            }`}
+                                        >
+                                            {altLocale.toUpperCase()}
+                                        </a>
+                                    );
+                                })
+                            }
+                        </div>
                         <a href="https://github.com/GeroOf/web-ble-capture" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-slate-700 transition-colors">
                             GitHub
                         </a>

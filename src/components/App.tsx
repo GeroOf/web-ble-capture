@@ -1,193 +1,218 @@
-import { useState, useEffect } from 'preact/hooks';
-import LogConsole from './LogConsole';
-import { BluetoothManager } from '../lib/ble-client';
-import { bleState, setStatus, setDevice, setError, resetState, addLog, type ServiceInfo, type CharacteristicInfo } from '../lib/store';
-import { trackEvent } from '../lib/analytics';
-import DeviceExplorer from './DeviceExplorer';
-import HistoryModal from './HistoryModal';
-import AliasManagerModal from './AliasManagerModal';
-import { localPrefs } from '../lib/storage';
+import { useEffect, useState } from "preact/hooks";
+import AliasManagerModal from "./AliasManagerModal";
+import DeviceExplorer from "./DeviceExplorer";
+import HistoryModal from "./HistoryModal";
+import LogConsole from "./LogConsole";
+import { trackEvent } from "../lib/analytics";
+import { BluetoothManager } from "../lib/ble-client";
+import { I18nProvider, resolveLocalizedText, useI18n, type Locale } from "../lib/i18n";
+import { localPrefs } from "../lib/storage";
+import {
+  addLog,
+  bleState,
+  clearError,
+  resetState,
+  setDevice,
+  setError,
+  setStatus,
+  type CharacteristicInfo,
+  type ServiceInfo,
+} from "../lib/store";
 
-export default function App() {
-    const { status, error } = bleState.value;
-    const [customServices, setCustomServices] = useState(localPrefs.customServices);
-    const [showHistory, setShowHistory] = useState(false);
-    const [showAliases, setShowAliases] = useState(false);
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
 
-    useEffect(() => {
-        localPrefs.customServices = customServices;
-    }, [customServices]);
+  return String(error);
+}
 
-    const handleScan = async () => {
-        const manager = new BluetoothManager();
-        setStatus('connecting');
-        
-        try {
-            const additionalServices = customServices
-                .split(',')
-                .map(s => s.trim())
-                .filter(s => s.length > 0);
+function AppContent() {
+  const { locale, t } = useI18n();
+  const { status, error } = bleState.value;
+  const [customServices, setCustomServices] = useState(localPrefs.customServices);
+  const [showHistory, setShowHistory] = useState(false);
+  const [showAliases, setShowAliases] = useState(false);
 
-            const device = await manager.scan(additionalServices);
-            trackEvent('scan_device');
-            setDevice(device);
-            
-            // Handle disconnection
-            device.addEventListener('gattserverdisconnected', handleDisconnectEvent);
-            
-            // Connect
-            const server = await manager.connect(device);
-            
-            // Discover
-            const services = await manager.getServices(server);
-            
-            // Map services and characteristics
-            const servicesData: ServiceInfo[] = [];
-            
-            for (const service of services) {
-                const chars = await manager.getCharacteristics(service);
-                
-                const charInfos: CharacteristicInfo[] = chars.map(c => ({
-                    uuid: c.uuid,
-                    properties: {
-                        read: c.properties.read,
-                        write: c.properties.write,
-                        notify: c.properties.notify,
-                        indicate: c.properties.indicate
-                    },
-                    instance: c
-                }));
-                
-                servicesData.push({
-                    uuid: service.uuid,
-                    characteristics: charInfos
-                });
-            }
-            
-            // Update state
-            bleState.value = {
-                ...bleState.value,
-                status: 'connected',
-                services: servicesData
-            };
-             addLog({ timestamp: Date.now(), type: 'info', message: `Connected to ${device.name}` });
-             trackEvent('connect_device');
-            
-        } catch (e: any) {
-            console.error(e);
-            setError(e.message || 'Connection failed');
-        }
-    };
+  useEffect(() => {
+    localPrefs.customServices = customServices;
+  }, [customServices]);
 
-    const handleDisconnectEvent = () => {
-        addLog({ timestamp: Date.now(), type: 'info', message: 'Device disconnected' });
-        resetState();
-    };
+  const handleDisconnectEvent = () => {
+    addLog({ timestamp: Date.now(), type: "info", messageKey: "log.deviceDisconnected" });
+    resetState();
+  };
 
-    const handleDisconnect = () => {
-        if (bleState.value.device?.gatt?.connected) {
-            bleState.value.device.gatt.disconnect();
-            trackEvent('disconnect_device');
-        }
-        // State reset will happen via event listener or we force it if needed, 
-        // but event listener is safer for all cases (e.g. out of range).
-        // However, if we manually disconnect, the event fires too.
-    };
+  const handleScan = async () => {
+    const manager = new BluetoothManager();
+    setStatus("connecting");
 
-    // Cleanup listener on unmount if needed, though mostly handled by state reset
-    // managing the device reference.
+    try {
+      const additionalServices = customServices
+        .split(",")
+        .map((service) => service.trim())
+        .filter((service) => service.length > 0);
 
-    if (status === 'connected') {
-        return (
-            <div class="h-[calc(100vh-8rem)] flex flex-col lg:flex-row gap-6 relative">
-                 <div class="lg:w-1/3 flex flex-col gap-4 overflow-hidden">
-                     <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
-                        <span class="font-bold text-slate-700">Connected</span>
-                        <div class="flex gap-2">
-                            <button 
-                                onClick={() => setShowHistory(true)}
-                                class="text-sm px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
-                            >
-                                History
-                            </button>
-                            <button 
-                                onClick={handleDisconnect}
-                                class="text-sm px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
-                            >
-                                Disconnect
-                            </button>
-                        </div>
-                     </div>
-                     <div class="flex-1 overflow-y-auto">
-                        <DeviceExplorer />
-                     </div>
-                 </div>
-                 
-                 <div class="lg:w-2/3 flex flex-col overflow-hidden">
-                    <LogConsole />
-                 </div>
-                 {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
-            </div>
-        );
+      const device = await manager.scan(additionalServices);
+      trackEvent("scan_device");
+      setDevice(device);
+
+      device.addEventListener("gattserverdisconnected", handleDisconnectEvent);
+
+      const server = await manager.connect(device);
+      const services = await manager.getServices(server);
+      const servicesData: ServiceInfo[] = [];
+
+      for (const service of services) {
+        const chars = await manager.getCharacteristics(service);
+
+        const charInfos: CharacteristicInfo[] = chars.map((characteristic) => ({
+          uuid: characteristic.uuid,
+          properties: {
+            read: characteristic.properties.read,
+            write: characteristic.properties.write,
+            notify: characteristic.properties.notify,
+            indicate: characteristic.properties.indicate,
+          },
+          instance: characteristic,
+        }));
+
+        servicesData.push({
+          uuid: service.uuid,
+          characteristics: charInfos,
+        });
+      }
+
+      bleState.value = {
+        ...bleState.value,
+        status: "connected",
+        error: null,
+        services: servicesData,
+      };
+      addLog({
+        timestamp: Date.now(),
+        type: "info",
+        messageKey: "log.connectedTo",
+        messageValues: { deviceName: device.name || t("device.unknownDevice") },
+      });
+      trackEvent("connect_device");
+    } catch (error) {
+      console.error(error);
+      setError({
+        messageKey: "error.connectionFailed",
+        messageValues: { reason: getErrorMessage(error) },
+      });
     }
+  };
 
+  const handleDisconnect = () => {
+    if (bleState.value.device?.gatt?.connected) {
+      bleState.value.device.gatt.disconnect();
+      trackEvent("disconnect_device");
+    }
+  };
+
+  if (status === "connected") {
     return (
-        <div class="flex flex-col items-center justify-center min-h-[50vh] space-y-8">
-             <div class="space-y-4 max-w-2xl text-center">
-                <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
-                    Web BLE <span class="text-brand-600">Capture</span>
-                </h2>
-                <p class="text-xl text-slate-600">
-                    Scan, Connect, and Inspect BLE Peripherals directly from your browser.
-                </p>
+      <div class="relative flex h-[calc(100vh-8rem)] flex-col gap-6 lg:flex-row">
+        <div class="flex flex-col gap-4 overflow-hidden lg:w-1/3">
+          <div class="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
+            <span class="font-bold text-slate-700">{t("home.connectedPanel")}</span>
+            <div class="flex gap-2">
+              <button
+                onClick={() => setShowHistory(true)}
+                class="rounded bg-blue-50 px-3 py-1 text-sm text-blue-600 transition-colors hover:bg-blue-100"
+              >
+                {t("home.history")}
+              </button>
+              <button
+                onClick={handleDisconnect}
+                class="rounded bg-red-50 px-3 py-1 text-sm text-red-600 transition-colors hover:bg-red-100"
+              >
+                {t("home.disconnect")}
+              </button>
             </div>
-
-            <div class="w-full max-w-md space-y-4">
-                {error && (
-                    <div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200 flex justify-between items-start">
-                        <span>{error}</span>
-                        <button onClick={() => setError('')} class="ml-2 text-red-500 hover:text-red-700">&times;</button>
-                    </div>
-                )}
-                
-                <div class="space-y-2">
-                    <div class="flex justify-between items-end">
-                        <label class="block text-sm font-medium text-gray-700">Additional Service UUIDs (Optional)</label>
-                        <button 
-                            onClick={() => setShowAliases(true)}
-                            class="text-xs text-brand-600 hover:text-brand-800 transition-colors bg-brand-50 px-2 py-0.5 rounded"
-                        >
-                            Manage Aliases
-                        </button>
-                    </div>
-                    <input 
-                        type="text" 
-                        value={customServices}
-                        onInput={(e) => setCustomServices(e.currentTarget.value)}
-                        placeholder="e.g. 1234, 0000aaaa-0000..."
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-shadow"
-                    />
-                    <p class="text-xs text-slate-500">Comma separated full 128-bit UUIDs or 16-bit aliases.</p>
-                </div>
-
-                <button
-                    onClick={handleScan}
-                    disabled={status === 'connecting'}
-                    class="w-full px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    {status === 'connecting' ? 'Connecting...' : 'Scan & Connect'}
-                </button>
-                
-                <button
-                    onClick={() => setShowHistory(true)}
-                    class="w-full px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 text-lg font-semibold rounded-xl shadow transition-all mt-4"
-                >
-                    View Session History
-                </button>
-            </div>
-            
-            {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
-            {showAliases && <AliasManagerModal onClose={() => setShowAliases(false)} />}
+          </div>
+          <div class="flex-1 overflow-y-auto">
+            <DeviceExplorer />
+          </div>
         </div>
+
+        <div class="flex flex-col overflow-hidden lg:w-2/3">
+          <LogConsole />
+        </div>
+        {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
+      </div>
     );
+  }
+
+  return (
+    <div class="flex min-h-[50vh] flex-col items-center justify-center space-y-8">
+      <div class="max-w-2xl space-y-4 text-center">
+        <h2 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+          Web BLE <span class="text-brand-600">Capture</span>
+        </h2>
+        <p class="text-xl text-slate-600">{t("home.heroDescription")}</p>
+      </div>
+
+      <div class="w-full max-w-md space-y-4">
+        {error && (
+          <div class="flex items-start justify-between rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+            <span>{resolveLocalizedText(locale, error)}</span>
+            <button onClick={clearError} class="ml-2 text-red-500 hover:text-red-700">
+              &times;
+            </button>
+          </div>
+        )}
+
+        <div class="space-y-2">
+          <div class="flex items-end justify-between">
+            <label class="block text-sm font-medium text-gray-700">
+              {t("home.additionalServicesLabel")}
+            </label>
+            <button
+              onClick={() => setShowAliases(true)}
+              class="rounded bg-brand-50 px-2 py-0.5 text-xs text-brand-600 transition-colors hover:text-brand-800"
+            >
+              {t("home.manageAliases")}
+            </button>
+          </div>
+          <input
+            type="text"
+            value={customServices}
+            onInput={(event) => setCustomServices(event.currentTarget.value)}
+            placeholder="e.g. 1234, 0000aaaa-0000..."
+            class="w-full rounded-lg border border-slate-300 px-4 py-2 outline-none transition-shadow focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
+          />
+          <p class="text-xs text-slate-500">{t("home.additionalServicesHelp")}</p>
+        </div>
+
+        <button
+          onClick={handleScan}
+          disabled={status === "connecting"}
+          class="w-full transform rounded-xl bg-brand-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {status === "connecting" ? t("home.connecting") : t("home.scanConnect")}
+        </button>
+
+        <button
+          onClick={() => setShowHistory(true)}
+          class="mt-4 w-full rounded-xl bg-slate-100 px-8 py-4 text-lg font-semibold text-slate-700 shadow transition-all hover:bg-slate-200"
+        >
+          {t("home.viewSessionHistory")}
+        </button>
+      </div>
+
+      {showHistory && <HistoryModal onClose={() => setShowHistory(false)} />}
+      {showAliases && <AliasManagerModal onClose={() => setShowAliases(false)} />}
+    </div>
+  );
+}
+
+export default function App({ locale }: { locale: Locale }) {
+  return (
+    <I18nProvider locale={locale}>
+      <AppContent />
+    </I18nProvider>
+  );
 }

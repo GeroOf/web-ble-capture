@@ -18,17 +18,23 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 ## 画面構成
 
 1. **トップページ (/)**
-   - ヘッダー: アプリタイトル
+   - `/ja/` へ遷移する静的リダイレクトページ
+   - JavaScript 非対応でも `/ja/` へ移動できるリンクを表示
+
+2. **ロケール別トップページ (`/ja/`, `/en/`)**
+   - ヘッダー: アプリタイトル、GitHub リンク、言語切り替え
    - メインエリア:
-     - 「スキャンして接続」ボタン (CTA)
+     - 「スキャンして接続」相当の CTA
      - 注意書き (Web Bluetooth API 対応ブラウザが必要である旨)
    - ステータス表示エリア (未接続/接続中など)
 
-2. **キャプチャ画面 (接続後)**
+3. **キャプチャ画面 (接続後)**
    - デバイス基本情報 (Name, ID, RSSI等)
    - サービス/キャラクタリスティック ツリービュー
    - ログコンソール (受信パケットの時系列表示)
    - 切断ボタン
+   - セッション履歴モーダル
+   - UUID エイリアス管理モーダル
 
 ## データフロー
 
@@ -60,6 +66,17 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 - **カスタム Service UUID**: スキャン時に入力する追加 UUID をブラウザに記憶し、次回アクセス時に復元する。
 - **UUID エイリアス辞書**: ユーザーが任意の UUID に人間可読な別名を設定し、デバイスエクスプローラーやログコンソールで表示に使用する。
 
+## 多言語化 (i18n)
+
+- 対応言語は **日本語 (`ja`)** と **英語 (`en`)** の 2 言語とする。
+- 公開 URL は `/ja/` と `/en/` を正とし、ルート `/` は `/ja/` へ固定遷移する。
+- 初期 HTML は各ロケールごとに静的生成し、クライアントサイドの言語自動判定は行わない。
+- `<html lang>`、title、description、keywords、OGP、Twitter Card、JSON-LD、`hreflang` はロケールごとに出し分ける。
+- 画面文言、noscript 文言、非対応ブラウザ向けメッセージ、モーダル文言、ボタン文言を多言語化対象とする。
+- デバイス名、UUID、ユーザーが入力したエイリアス値は翻訳しない。
+- 接続ログや履歴ログは保存時に言語非依存のキーとパラメータを保持し、表示時に現在のロケールで解決する。
+- 既存の IndexedDB ログは後方互換を維持し、旧形式の文字列ログも表示できるようにする。
+
 ## 分析と SEO (Analytics & SEO)
 
 - **Google Analytics**: `PUBLIC_GA_ID` 環境変数が設定されている場合のみ、トラッキングコードを出力する。
@@ -67,10 +84,12 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
   - GAが遮断された場合でもエラーによる主要処理の中断を防ぐ実装とする。
 - **Google Search Console**: `PUBLIC_GSC_VERIFICATION` 環境変数が設定されている場合のみ、所有権確認用の meta タグを出力する。
 - **基本メタ情報**:
-  - Title: `Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ`
-  - Description: ブラウザだけで動作するインストール不要の軽量BLE通信キャプチャツール。Web Bluetooth APIを利用してPeripheralデバイスのGATT通信を解析します。
-  - Keywords: `Web Bluetooth, BLEキャプチャ, ネットワークキャプチャ, ブラウザ完結, Web BLE Capture, GATT`
+  - 日本語 Title: `Web BLE Capture | ブラウザ完結の簡易BLEパケットキャプチャ`
+  - 日本語 Description: ブラウザだけで動作するインストール不要の軽量BLE通信キャプチャツール。Web Bluetooth APIを利用してPeripheralデバイスのGATT通信を解析します。
+  - 英語 Title: `Web BLE Capture | Browser-based BLE packet capture`
+  - 英語 Description: Lightweight BLE traffic capture running entirely in the browser with Web Bluetooth API support and no backend communication.
+  - Keywords: `Web Bluetooth, BLE capture, BLEキャプチャ, network capture, browser-based, Web BLE Capture, GATT`
 - **クローラビリティ**:
-  - `public/robots.txt` および `public/sitemap.xml` を静的配置し、クローラーへのインデックス登録をサポートする。
+  - `public/robots.txt` および `public/sitemap.xml` を静的配置し、`/ja/` と `/en/` のインデックス登録をサポートする。
 - **構造化データ**:
   - JSON-LD を用いて `WebApplication` として構造化データを定義し、検索エンジンでの表示を最適化する。
