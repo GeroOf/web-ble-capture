@@ -17,16 +17,22 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          package-manager: npm
           node-version: 24
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install dependencies
         env:
           SITE: "https://geroof.github.io"
           BASE: "/web-ble-capture"
           PUBLIC_GA_ID: ${{ secrets.PUBLIC_GA_ID }}
           PUBLIC_GSC_VERIFICATION: ${{ secrets.PUBLIC_GSC_VERIFICATION }}
+        run: |
+          npm ci
+          npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
