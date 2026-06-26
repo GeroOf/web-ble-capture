@@ -96,3 +96,10 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
   - `public/robots.txt` および `public/sitemap.xml` を静的配置し、`/` と `/ja/` のインデックス登録をサポートする。
 - **構造化データ**:
   - JSON-LD を用いて `WebApplication` として構造化データを定義し、検索エンジンでの表示を最適化する。
+
+## 依存関係とセキュリティ更新
+
+- npm パッケージの脆弱性診断は `npm audit --audit-level=low` を基準とし、検出 0 件を維持する。
+- パッケージ更新は npm registry の安定版を対象とし、canary / beta / alpha / next などのプレリリース版は使用しない。
+- Astro / Vite / Preact / Tailwind CSS / Vitest / oxc は本プロジェクトの固定技術スタックとして維持し、メジャー更新時も SSG、Progressive Enhancement、バックエンド通信なしの制約を壊さない。
+- 依存更新後は `npm run format`、`npm run lint`、`npm test -- --run`、`npm run build` を実行し、静的生成とテストが通ることを確認する。
