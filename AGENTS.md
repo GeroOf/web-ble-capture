@@ -73,6 +73,6 @@
 
 開発手順、ドキュメント運用ルール、レビュー基準（フロントエンドベストプラクティス2026、セキュリティ等）、およびエージェントの行動原則については、以下のスキル定義を参照し、遵守すること。
 
-- **`develop-process` Skill**: `.agent/skills/develop-process/SKILL.md`
+- **`develop-process` Skill**: `.agents/skills/develop-process/SKILL.md`
 
 > この AGENTS.md や Agent Skills に反する判断を行う場合、**必ず作業ログへ明示的に例外として記録すること。**

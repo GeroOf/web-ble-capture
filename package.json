@@ -9,7 +9,9 @@
     "astro": "astro",
     "test": "vitest",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "skills:check": "node .agents/skills/develop-process/scripts/check-skills.mjs",
+    "skills:test": "vitest run --config .agents/skills/develop-process/scripts/vitest.config.mjs"
   },
   "dependencies": {
     "@astrojs/preact": "^6.0.0",
