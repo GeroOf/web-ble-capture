@@ -1,4 +1,5 @@
 import { BluetoothManager } from "../lib/ble-client";
+import { useCallback } from "preact/hooks";
 import { useI18n } from "../lib/i18n";
 import {
   addLog,
@@ -95,7 +96,7 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
   const isSubscribed = activeSubscriptions.has(char.uuid);
   const supportsNotify = char.properties.notify || char.properties.indicate;
 
-  const handleNotification = (event: Event) => {
+  const handleNotification = useCallback((event: Event) => {
     const target = event.target as BluetoothRemoteGATTCharacteristic;
     if (!target.value) return;
 
@@ -106,7 +107,7 @@ function CharacteristicItem({ char }: { char: CharacteristicInfo }) {
       charUuid: target.uuid,
       data: target.value,
     });
-  };
+  }, []);
 
   const toggleSubscribe = async () => {
     if (!char.instance) return;

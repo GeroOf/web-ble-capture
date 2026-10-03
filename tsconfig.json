@@ -3,6 +3,7 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
+    "types": ["astro/client", "web-bluetooth", "node"],
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   }
