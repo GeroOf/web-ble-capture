@@ -70,9 +70,7 @@ const structuredData = {
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={`${siteOrigin}${basePath}/og-image.png`} />
 
-		<script type="application/ld+json" is:inline>
-			{JSON.stringify(structuredData)}
-		</script>
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
 		{
 			gscVerification && (
 				<meta name="google-site-verification" content={gscVerification} />

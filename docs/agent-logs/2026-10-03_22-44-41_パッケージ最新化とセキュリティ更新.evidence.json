@@ -1,0 +1,433 @@
+{
+  "date": "2026-10-03",
+  "node": "v26.10.0",
+  "npm": "11.19.1",
+  "dependencies": {
+    "name": "web-ble-capture",
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+      "dev": "astro dev",
+      "build": "astro build",
+      "preview": "astro preview",
+      "astro": "astro",
+      "test": "vitest",
+      "lint": "oxlint",
+      "format": "oxfmt",
+      "skills:check": "node .agents/skills/develop-process/scripts/check-skills.mjs",
+      "skills:test": "vitest run --config .agents/skills/develop-process/scripts/vitest.config.mjs",
+      "check": "astro check",
+      "test:e2e": "vitest run --config vitest.e2e.config.ts"
+    },
+    "dependencies": {
+      "@astrojs/preact": "^6.0.5",
+      "@preact/signals": "^2.11.3",
+      "@tailwindcss/vite": "^4.3.3",
+      "astro": "^7.3.5",
+      "preact": "^10.29.8",
+      "tailwindcss": "^4.3.3"
+    },
+    "devDependencies": {
+      "@astrojs/check": "^0.9.10",
+      "@types/node": "^26.6.4",
+      "@types/web-bluetooth": "^0.0.21",
+      "jsdom": "^30.1.1",
+      "oxfmt": "^0.71.0",
+      "oxlint": "^1.86.0",
+      "playwright": "^1.63.0",
+      "typescript": "^6.0.3",
+      "vite": "^8.3.2",
+      "vitest": "^5.0.3"
+    },
+    "engines": {
+      "node": "^22.22.2 || ^24.15.0 || >=26.0.0",
+      "npm": ">=9.6.5"
+    }
+  },
+  "audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {
+      "astro": {
+        "name": "astro",
+        "severity": "high",
+        "isDirect": true,
+        "via": ["http-cache-semantics"],
+        "effects": [],
+        "range": "<=0.0.0-head-body-content-20240329190922 || >=2.10.10",
+        "nodes": ["node_modules/astro"],
+        "fixAvailable": {
+          "name": "astro",
+          "version": "2.10.9",
+          "isSemVerMajor": true
+        }
+      },
+      "http-cache-semantics": {
+        "name": "http-cache-semantics",
+        "severity": "high",
+        "isDirect": false,
+        "via": [
+          {
+            "source": 1240991,
+            "name": "http-cache-semantics",
+            "dependency": "http-cache-semantics",
+            "title": "http-cache-semantics max-stale handling can disclose cross-user cached responses",
+            "url": "https://github.com/advisories/GHSA-ch52-4w7c-c8xp",
+            "severity": "high",
+            "cwe": ["CWE-524"],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+            },
+            "range": "<=4.2.0"
+          }
+        ],
+        "effects": ["astro"],
+        "range": "*",
+        "nodes": ["node_modules/http-cache-semantics"],
+        "fixAvailable": {
+          "name": "astro",
+          "version": "2.10.9",
+          "isSemVerMajor": true
+        }
+      }
+    },
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 2,
+        "critical": 0,
+        "total": 2
+      },
+      "dependencies": {
+        "prod": 260,
+        "dev": 169,
+        "optional": 165,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 555
+      }
+    }
+  },
+  "signatures": {
+    "invalid": [],
+    "missing": []
+  },
+  "outdated": {
+    "preact": {
+      "current": "10.29.8",
+      "wanted": "10.29.8",
+      "latest": "11.0.0",
+      "dependent": "web-ble-network-capture",
+      "location": "/Users/gyokojp/Desktop/repos/web-ble-network-capture/node_modules/preact"
+    },
+    "typescript": {
+      "current": "6.0.3",
+      "wanted": "6.0.3",
+      "latest": "7.0.2",
+      "dependent": "web-ble-network-capture",
+      "location": "/Users/gyokojp/Desktop/repos/web-ble-network-capture/node_modules/typescript"
+    }
+  },
+  "distribution": {
+    "hosts": {
+      "registry.npmjs.org": 555
+    },
+    "missingIntegrity": []
+  },
+  "tests": {
+    "unit": 28,
+    "e2e": 4,
+    "skills": 22,
+    "typeErrors": 0,
+    "typeWarnings": 0,
+    "typeHints": 0
+  },
+  "moduleReport": [
+    {
+      "environment": "prerender",
+      "format": "es",
+      "chunks": [
+        {
+          "file": "prerender-entry.CUgcntHv.mjs",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/noop-middleware.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/manifest.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/entrypoints/manifest.js",
+            "\u0000astro:preact:opts",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/context.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/signals.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/static-html.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/internal-helpers/dist/path.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/internal-helpers/dist/create-filter.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/server.js",
+            "\u0000virtual:astro:renderers",
+            "\u0000virtual:astro:routes",
+            "\u0000virtual:astro:pages",
+            "\u0000virtual:astro:manifest",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/vite-plugin-scripts/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/redirects/component.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/assets/utils/getAssetsPrefix.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/ssr-element.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/manifest/memo.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/request-body.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/pattern.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/server-islands/endpoint.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/template/4xx.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/internal/astro-designed-error-pages.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/default.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/path.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/error-routes.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/helpers.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/build/util.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/request.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/util/pathname.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/rewrite.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/build/plugins/util.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/build/runtime.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/build/environment.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/internal-helpers/dist/remote.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/validate-headers.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/i18n/domain.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cookies/cookies.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cookies/response.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/logger/core.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/manifest/ambient.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/render-options.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/defineMiddleware.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/origin-check.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/fetch/features.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/consts.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/runtime/client.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/utils.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/environment/production.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/environment/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/logger/public.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/logger/impls/console.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/logger/manifest-logger.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/generator.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/internal/validation.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/params.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/validation.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/paginate.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/route-cache.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/params-and-props.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/slots.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/render/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/fallback.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/router.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/i18n/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/middleware.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/i18n/utils.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/prepare-response.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/pages/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/match.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/astro-designed-error-pages.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/priority.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/router.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/route-table.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/session/provider-disabled.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/output-filename.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/default-handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/build-handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/dev-handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/callMiddleware.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/sequence.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/load.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/runtime/noop.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/middleware/astro-middleware.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/util/normalized-url.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/rewrites/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/manifest/derived.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/server-islands/mappings.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/fetch/fetch-state.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/internal-helpers/dist/object.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/noop-actions.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/load.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/runtime/server.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/actions/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/3xx.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/trailing-slash-handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/provider.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/runtime/utils.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/runtime/cache.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/parts.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/runtime/route-matching.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/cache/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/redirects/render.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/fetch/default-handler.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/match-request.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/base.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/app.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/app/entrypoints/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/build/app.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/entrypoints/prerender.js"
+          ]
+        },
+        {
+          "file": "chunks/Layout_CdQAbqJU.mjs",
+          "modules": [
+            "\u0000rolldown/runtime.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/astro-component.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/script.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/compiler/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/styles/global.css",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/i18n.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/layouts/Layout.astro"
+          ]
+        },
+        {
+          "file": "chunks/_noop-middleware_CQ50ikAJ.mjs",
+          "modules": ["\u0000noop-middleware"]
+        },
+        {
+          "file": "chunks/_virtual_astro_server-island-manifest_C1Q2srgE.mjs",
+          "modules": ["\u0000virtual:astro:server-island-manifest"]
+        },
+        {
+          "file": "chunks/_virtual_astro_session-driver_C-PI1Pas.mjs",
+          "modules": ["\u0000virtual:astro:session-driver"]
+        },
+        {
+          "file": "chunks/index_81Q9Wy9j.mjs",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/pages/[locale]/index.astro",
+            "\u0000virtual:astro:page:src/pages/[locale]/index@_@astro"
+          ]
+        },
+        {
+          "file": "chunks/index_CKWVj1lE.mjs",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/pages/index.astro",
+            "\u0000virtual:astro:page:src/pages/index@_@astro"
+          ]
+        },
+        {
+          "file": "chunks/noop-entrypoint_Z3zFhrGC.mjs",
+          "modules": ["\u0000virtual:astro:actions/noop-entrypoint"]
+        },
+        {
+          "file": "chunks/server_B77nRPYF.mjs",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/csp/config.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/encryption.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/constants.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/utils.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/printer.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/errors.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/errors/errors-data.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/astro-global.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/endpoint.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/util.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/escape.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/jsx-runtime/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/head-propagation/resolver.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/factory.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/serialize.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/hydration.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/shorthash.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/head-and-content.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/astro-island.prebuilt.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/astro-island.prebuilt-dev.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/astro-island-styles.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/scripts.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/head-propagation/buffer.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/head-propagation/policy.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/head-propagation/runtime.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/csp/runtime.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/csp.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/instruction.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/util.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/head.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/server-islands-shared.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/render-template.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/slot.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/server-islands.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/common.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/any.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/instance.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/streaming.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/render.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/astro/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/dom.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/component.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/jsx.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/core/routing/internal/route-errors.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/page.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/tags.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/index.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/render/template-depth.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/transition.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/astro/dist/runtime/server/index.js"
+          ]
+        }
+      ]
+    },
+    {
+      "environment": "client",
+      "format": "es",
+      "chunks": [
+        {
+          "file": "_astro/App.DSTTgfTN.js",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/i18n.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/storage.ts",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/components/AliasManagerModal.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/store.ts",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/analytics.ts",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/utils.ts",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/components/DeviceExplorer.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/components/HistoryModal.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/components/LogConsole.tsx",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/components/App.tsx"
+          ]
+        },
+        {
+          "file": "_astro/client.BnytrTIT.js",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/static-html.js",
+            "\u0000vite/preload-helper.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@astrojs/preact/dist/client.js"
+          ]
+        },
+        {
+          "file": "_astro/index.astro_astro_type_script_index_0_lang.BUFPPVA8.js",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/pages/[locale]/index.astro?astro&type=script&index=0&lang.ts"
+          ]
+        },
+        {
+          "file": "_astro/index.astro_astro_type_script_index_0_lang.mpbhQtyX.js",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/src/pages/index.astro?astro&type=script&index=0&lang.ts"
+          ]
+        },
+        {
+          "file": "_astro/ble-client.D_XrCypw.js",
+          "modules": ["/private/tmp/web-ble-package-update-sGgUBA/project/src/lib/ble-client.ts"]
+        },
+        {
+          "file": "_astro/preact.module.DQhU9Bmi.js",
+          "modules": [
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/preact/dist/preact.module.js"
+          ]
+        },
+        {
+          "file": "_astro/signals.module.N0WE9uj9.js",
+          "modules": [
+            "\u0000rolldown/runtime.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/preact/hooks/dist/hooks.module.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@preact/signals-core/dist/signals-core.module.js",
+            "/private/tmp/web-ble-package-update-sGgUBA/project/node_modules/@preact/signals/dist/signals.module.js"
+          ]
+        }
+      ]
+    }
+  ]
+}

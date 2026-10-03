@@ -103,3 +103,7 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 - パッケージ更新は npm registry の安定版を対象とし、canary / beta / alpha / next などのプレリリース版は使用しない。
 - Astro / Vite / Preact / Tailwind CSS / Vitest / oxc は本プロジェクトの固定技術スタックとして維持し、メジャー更新時も SSG、Progressive Enhancement、バックエンド通信なしの制約を壊さない。
 - 依存更新後は `npm run format`、`npm run lint`、`npm test -- --run`、`npm run build` を実行し、静的生成とテストが通ることを確認する。
+- 配布元は `.npmrc` で npm 公式 registry に固定し、インストール時スクリプトは原則抑止する。必要なスクリプトだけ、内容を確認してから実行する。
+- Node.js は `^22.22.2 || ^24.15.0 || >=26.0.0`、npm は9.6.5以上を必要とする。Preact は公式 Astro 連携の対応範囲内の最新10系を使い、型検査の TypeScript は公式 checker が対応する6系を使う。
+- 型検査は `npm run check`、実ブラウザ E2E は `npm run test:e2e` を使う。E2E はインストール済み Google Chrome と模擬 BLE API を使い、新しい一時出力先へビルドする。実機互換性を E2E の成功から推定しない。
+- 未修正版の `http-cache-semantics` に対する検出は残る。現行 SSG ではブラウザ側に含まず、Astro の利用経路はビルド時の画像キャッシュである。影響条件と仕様の検出0件維持に対する例外は `docs/agent-logs/2026-10-03_22-44-41_パッケージ最新化とセキュリティ更新.md` に記録し、未解消を検出0件とは扱わない。
