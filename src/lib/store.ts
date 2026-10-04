@@ -1,8 +1,8 @@
 import { signal } from "@preact/signals";
-import { logStorage } from "./storage";
-import type { BLEState, BluetoothStatus, LocalizedText, LogEntry } from "./types";
-
-// Re-export types for consumer convenience
+import { copyPacket } from "./ble-input";
+import { logStorage, MAX_SESSION_LOGS } from "./storage";
+import type { ConnectionMode, PeripheralDevice } from "./gatt-types";
+import type { BLEState, BluetoothStatus, LocalizedText, LogEntry, ServiceInfo } from "./types";
 export type {
   BluetoothStatus,
   CharacteristicInfo,
@@ -12,78 +12,84 @@ export type {
   LogEntryType,
 } from "./types";
 
-/** ステートの初期値（resetState と共有） */
-const INITIAL_STATE: BLEState = {
-  status: "disconnected",
-  device: null,
-  services: [],
-  error: null,
-  logs: [],
-  activeSubscriptions: new Set(),
-  sessionId: null,
-};
-
-export const bleState = signal<BLEState>({ ...INITIAL_STATE });
-
-function normalizeText(text: LocalizedText | string): LocalizedText {
-  return typeof text === "string" ? { message: text } : text;
+let logSequence = 0;
+let sessionSequence = 0;
+function initialState(): BLEState {
+  return {
+    status: "disconnected",
+    device: null,
+    services: [],
+    error: null,
+    logs: [],
+    activeSubscriptions: new Set(),
+    sessionId: null,
+    mode: "real",
+    startedAt: 0,
+  };
 }
-
-// Helper actions
+export const bleState = signal<BLEState>(initialState());
 export const resetState = () => {
-  bleState.value = { ...INITIAL_STATE, activeSubscriptions: new Set() };
+  bleState.value = initialState();
 };
-
 export const setStatus = (status: BluetoothStatus) => {
   bleState.value = { ...bleState.value, status };
 };
-
 export const setError = (error: LocalizedText | string) => {
-  const normalized = normalizeText(error);
-  bleState.value = { ...bleState.value, status: "error", error: normalized };
-  addLog({ timestamp: Date.now(), type: "error", ...normalized });
-};
-
-export const clearError = () => {
+  const normalized = typeof error === "string" ? { message: error } : error;
   bleState.value = {
     ...bleState.value,
-    error: null,
-    status: bleState.value.status === "error" ? "disconnected" : bleState.value.status,
+    status: bleState.value.status === "connected" ? "connected" : "error",
+    error: normalized,
   };
 };
-
-export const setDevice = (device: BluetoothDevice) => {
-  const sessionId = `${Date.now()}_${device.name || "Unknown"}`;
-  logStorage.startSession(sessionId, device.name || "Unknown");
-  bleState.value = { ...bleState.value, device, sessionId };
+export const clearError = () => {
+  bleState.value = { ...bleState.value, error: null };
 };
-
+export const setDevice = (
+  device: PeripheralDevice,
+  mode: ConnectionMode,
+  services: ServiceInfo[],
+) => {
+  const sessionId = `session-${++sessionSequence}`;
+  const startedAt = Date.now();
+  logStorage.startSession(sessionId, mode);
+  bleState.value = {
+    ...initialState(),
+    status: "connected",
+    device,
+    mode,
+    services,
+    sessionId,
+    startedAt,
+  };
+};
+export const disconnectState = () => {
+  bleState.value = {
+    ...bleState.value,
+    status: "disconnected",
+    device: null,
+    services: [],
+    activeSubscriptions: new Set(),
+    error: null,
+  };
+};
 export const addLog = (entry: LogEntry) => {
-  // Limit logs to keep memory usage in check (e.g. 1000 entries)
-  const newLogs = [...bleState.value.logs, entry];
-  if (newLogs.length > 1000) {
-    newLogs.shift();
-  }
-
-  // Save to IndexedDB
-  const { sessionId } = bleState.value;
-  if (sessionId) {
-    logStorage.addLog(sessionId, entry).catch((e) => console.error("DB Error", e));
-  }
-
-  bleState.value = { ...bleState.value, logs: newLogs };
+  const snapshot: LogEntry = {
+    ...entry,
+    id: ++logSequence,
+    data: entry.data ? copyPacket(entry.data) : undefined,
+    messageValues: entry.messageValues ? { ...entry.messageValues } : undefined,
+  };
+  const { sessionId, logs } = bleState.value;
+  if (sessionId) logStorage.addLog(sessionId, snapshot);
+  bleState.value = { ...bleState.value, logs: [...logs, snapshot].slice(-MAX_SESSION_LOGS) };
 };
-
 export const clearLogs = () => {
   bleState.value = { ...bleState.value, logs: [] };
 };
-
-export const setSubscriptionStatus = (charUuid: string, isSubscribed: boolean) => {
-  const newSet = new Set(bleState.value.activeSubscriptions);
-  if (isSubscribed) {
-    newSet.add(charUuid);
-  } else {
-    newSet.delete(charUuid);
-  }
-  bleState.value = { ...bleState.value, activeSubscriptions: newSet };
+export const setSubscriptionStatus = (id: string, subscribed: boolean) => {
+  const activeSubscriptions = new Set(bleState.value.activeSubscriptions);
+  if (subscribed) activeSubscriptions.add(id);
+  else activeSubscriptions.delete(id);
+  bleState.value = { ...bleState.value, activeSubscriptions };
 };
