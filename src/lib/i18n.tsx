@@ -2,6 +2,7 @@ import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 import type { ComponentChildren } from "preact";
 import type { LocalizedText, MessageValues } from "./types";
+import { FEATURE_MESSAGES } from "./feature-messages";
 
 export const SUPPORTED_LOCALES = ["ja", "en"] as const;
 
@@ -31,6 +32,7 @@ const LOCALE_META: Record<Locale, LocaleMeta> = {
 
 export const MESSAGES = {
   ja: {
+    ...FEATURE_MESSAGES.ja,
     "nav.github": "GitHub",
     "nav.switchToJa": "日本語",
     "nav.switchToEn": "English",
@@ -69,7 +71,7 @@ export const MESSAGES = {
     "log.empty": "まだデータはありません。キャラクタリスティックを購読するとログが表示されます。",
     "log.copySuccess": "ログをクリップボードにコピーしました。",
     "log.copyFailure": "ログのコピーに失敗しました。",
-    "log.type.notification": "通知",
+    "log.type.notification": "値変更",
     "log.type.read": "読取",
     "log.type.write": "書込",
     "log.type.info": "情報",
@@ -113,6 +115,7 @@ export const MESSAGES = {
     "error.subscriptionToggleFailed": "購読状態の変更に失敗しました: {reason}",
   },
   en: {
+    ...FEATURE_MESSAGES.en,
     "nav.github": "GitHub",
     "nav.switchToJa": "Japanese",
     "nav.switchToEn": "English",
@@ -151,7 +154,7 @@ export const MESSAGES = {
     "log.empty": "No data captured yet. Subscribe to a characteristic to start logging.",
     "log.copySuccess": "Logs copied to clipboard.",
     "log.copyFailure": "Failed to copy logs.",
-    "log.type.notification": "NOTIFY",
+    "log.type.notification": "VALUE CHANGE",
     "log.type.read": "READ",
     "log.type.write": "WRITE",
     "log.type.info": "INFO",
