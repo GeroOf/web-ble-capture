@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { BluetoothManager } from "./ble-client";
 import { normalizeServiceUuid } from "./ble-input";
+import { bleErrorKey, GattResourceError } from "./ble-error";
 import type {
   GattCharacteristic,
   GattDescriptor,
@@ -203,4 +204,113 @@ describe("GATT session lifecycle", () => {
     expect(first.writeValueWithResponse).not.toHaveBeenCalled();
     manager.dispose();
   });
+});
+
+describe("GATT discovery resource limits", () => {
+  it.each([128, 129])("bounds %i service instances before visiting them", async (count) => {
+    const { manager, device, server } = fixture();
+    const getCharacteristics = vi.fn(async () => []);
+    server.getPrimaryServices = async () =>
+      Array.from({ length: count }, () => ({
+        uuid: normalizeServiceUuid("ab00"),
+        getCharacteristics,
+      }));
+    await manager.connect(device);
+    try {
+      if (count === 128) {
+        expect(await manager.discover()).toHaveLength(128);
+        expect(getCharacteristics).toHaveBeenCalledTimes(128);
+      } else {
+        await expect(manager.discover()).rejects.toMatchObject({
+          resource: "services",
+          name: "GattResourceError",
+        });
+        expect(getCharacteristics).not.toHaveBeenCalled();
+      }
+    } finally {
+      manager.dispose();
+    }
+  });
+
+  it.each([[1024], [600, 424]])("accepts 1024 characteristics across %j", async (...counts) => {
+    const { manager, device, server } = fixture();
+    server.getPrimaryServices = async () =>
+      counts.map((count) => ({
+        uuid: normalizeServiceUuid("ab00"),
+        getCharacteristics: async () => Array.from({ length: count }, () => new Characteristic()),
+      }));
+    await manager.connect(device);
+    try {
+      const services = await manager.discover();
+      const characteristics = services.flatMap((service) => service.characteristics);
+      expect(characteristics).toHaveLength(1024);
+      expect(new Set(characteristics.map((value) => value.id)).size).toBe(1024);
+    } finally {
+      manager.dispose();
+    }
+  });
+
+  it.each([[1025], [600, 425]])(
+    "rejects a 1025-characteristic graph before mapping the excess service %j",
+    async (...counts) => {
+      const { manager, device, server } = fixture();
+      const properties = vi.fn(() => new Characteristic().properties);
+      const services = counts.map((count, index) => ({
+        uuid: normalizeServiceUuid("ab00"),
+        getCharacteristics: async () =>
+          Array.from({ length: count }, () => {
+            const value = new Characteristic();
+            if (index === counts.length - 1)
+              Object.defineProperty(value, "properties", { get: properties });
+            return value;
+          }),
+      }));
+      const notVisited = vi.fn(async () => []);
+      services.push({ uuid: normalizeServiceUuid("ab00"), getCharacteristics: notVisited });
+      server.getPrimaryServices = async () => services;
+      await manager.connect(device);
+      try {
+        await expect(manager.discover()).rejects.toMatchObject({
+          name: "GattResourceError",
+          resource: "characteristics",
+        });
+        expect(properties).not.toHaveBeenCalled();
+        expect(notVisited).not.toHaveBeenCalled();
+      } finally {
+        manager.dispose();
+      }
+    },
+  );
+
+  it.each([128, 129])("bounds %i descriptors and keeps later operations usable", async (count) => {
+    const { manager, device, first } = fixture();
+    const descriptors = Array.from({ length: count }, (): GattDescriptor => ({
+      uuid: normalizeServiceUuid("2901"),
+      readValue: async () => first.value,
+      writeValue: async () => {},
+    }));
+    first.getDescriptors.mockResolvedValueOnce(descriptors);
+    await manager.connect(device);
+    try {
+      if (count === 128) expect(await manager.descriptors(first)).toBe(descriptors);
+      else
+        await expect(manager.descriptors(first)).rejects.toMatchObject({
+          resource: "descriptors",
+          name: "GattResourceError",
+        });
+      expect(device.gatt?.connected).toBe(true);
+      await expect(manager.read(first)).resolves.toBeInstanceOf(DataView);
+      first.getDescriptors.mockResolvedValueOnce([descriptors[0]!]);
+      await expect(manager.descriptors(first)).resolves.toEqual([descriptors[0]]);
+    } finally {
+      manager.dispose();
+    }
+  });
+
+  it.each(["services", "characteristics", "descriptors"] as const)(
+    "identifies the dedicated %s error separately from input and connection failures",
+    (resource) => {
+      expect(bleErrorKey(new GattResourceError(resource))).toBe(`error.discovery.${resource}`);
+    },
+  );
 });

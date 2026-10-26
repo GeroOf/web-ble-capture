@@ -1,4 +1,5 @@
 import { buildRequestOptions, copyPacket, isGattWriteAllowed } from "./ble-input";
+import { GattResourceError } from "./ble-error";
 import type {
   ConnectionMode,
   GattCharacteristic,
@@ -8,6 +9,11 @@ import type {
   SearchOptions,
 } from "./gatt-types";
 import type { ServiceInfo } from "./types";
+
+// Application resource policy, not Bluetooth protocol limits.
+export const MAX_GATT_SERVICES = 128;
+export const MAX_GATT_CHARACTERISTICS = 1024;
+export const MAX_GATT_DESCRIPTORS = 128;
 
 const queues = new WeakMap<GattServer, Promise<void>>();
 function enqueue<T>(server: GattServer, action: () => Promise<T>): Promise<T> {
@@ -82,10 +88,15 @@ export class BluetoothManager {
   async discover(): Promise<ServiceInfo[]> {
     return this.operation(async () => {
       const services = await this.device!.gatt!.getPrimaryServices();
+      if (services.length > MAX_GATT_SERVICES) throw new GattResourceError("services");
       const result: ServiceInfo[] = [];
+      let characteristicCount = 0;
       for (const [serviceIndex, service] of services.entries()) {
         if (this.disposed) throw new DOMException("Cancelled", "AbortError");
         const characteristics = await service.getCharacteristics();
+        characteristicCount += characteristics.length;
+        if (characteristicCount > MAX_GATT_CHARACTERISTICS)
+          throw new GattResourceError("characteristics");
         const id = `${service.uuid}:${serviceIndex}`;
         result.push({
           id,
@@ -148,7 +159,11 @@ export class BluetoothManager {
   }
 
   descriptors(characteristic: GattCharacteristic): Promise<GattDescriptor[]> {
-    return this.operation(() => characteristic.getDescriptors());
+    return this.operation(async () => {
+      const descriptors = await characteristic.getDescriptors();
+      if (descriptors.length > MAX_GATT_DESCRIPTORS) throw new GattResourceError("descriptors");
+      return descriptors;
+    });
   }
   readDescriptor(descriptor: GattDescriptor): Promise<DataView> {
     return this.operation(async () => copyPacket(await descriptor.readValue()));

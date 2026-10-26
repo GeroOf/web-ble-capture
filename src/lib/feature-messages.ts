@@ -105,6 +105,18 @@ const text = {
     "操作に失敗しました。機器の状態を確認し、再試行してください。",
     "Operation failed. Check the device and try again.",
   ],
+  "error.discovery.services": [
+    "サービスがアプリの上限128件を超えたため、探索を中止して切断しました。別の機器を選択してください。",
+    "Discovery stopped and the device was disconnected because it exceeds the app limit of 128 services. Choose another device.",
+  ],
+  "error.discovery.characteristics": [
+    "キャラクタリスティックがアプリの合計上限1024件を超えたため、探索を中止して切断しました。別の機器を選択してください。",
+    "Discovery stopped and the device was disconnected because it exceeds the app limit of 1024 characteristics in total. Choose another device.",
+  ],
+  "error.discovery.descriptors": [
+    "このキャラクタリスティックの記述子がアプリの上限128件を超えたため、記述子の探索を中止しました。他の操作は続けられます。",
+    "Descriptor discovery stopped because this characteristic exceeds the app limit of 128 descriptors. Other operations remain available.",
+  ],
   "log.format": ["パケット表示形式", "Packet format"],
   "log.timeFormat": ["時刻表示", "Timestamp format"],
   "log.autoScroll": ["自動スクロール", "Auto-scroll"],
