@@ -1,0 +1,980 @@
+{
+  "date": "2026-11-05",
+  "runtime": {
+    "node": "v26.13.0",
+    "npm": "11.20.0"
+  },
+  "engine": "^22.23.4 || ^24.22.1 || >=26.12.1",
+  "manifestSha256": "43d2fe099c7d31a83da46ac386cc96ac2a68f59fe6cd0e9cd779f942cd2c84bb",
+  "lockSha256": "0c7f2618110d68cb0b08f285d0a5461eeda56d0e3dd7ed2840552db54ea99acb",
+  "directUpdates": [
+    {
+      "name": "astro",
+      "before": "7.3.5",
+      "after": "7.4.5"
+    },
+    {
+      "name": "jsdom",
+      "before": "30.1.1",
+      "after": "30.1.3"
+    },
+    {
+      "name": "vitest",
+      "before": "5.0.3",
+      "after": "5.0.5"
+    }
+  ],
+  "lockDiff": {
+    "entries": 531,
+    "updated": [
+      {
+        "path": "node_modules/@asamuzakjp/dom-selector",
+        "before": "9.2.4",
+        "after": "10.0.5"
+      },
+      {
+        "path": "node_modules/@astrojs/markdown-satteri",
+        "before": "0.4.2",
+        "after": "0.4.6"
+      },
+      {
+        "path": "node_modules/@astrojs/prism",
+        "before": "4.0.2",
+        "after": "4.1.2"
+      },
+      {
+        "path": "node_modules/@astrojs/telemetry",
+        "before": "3.3.3",
+        "after": "3.4.2"
+      },
+      {
+        "path": "node_modules/@vitest/spy",
+        "before": "5.0.3",
+        "after": "5.0.5"
+      },
+      {
+        "path": "node_modules/am-i-vibing",
+        "before": "0.4.0",
+        "after": "0.5.0"
+      },
+      {
+        "path": "node_modules/astro",
+        "before": "7.3.5",
+        "after": "7.4.5"
+      },
+      {
+        "path": "node_modules/astro/node_modules/magic-string",
+        "before": "1.4.2",
+        "after": "1.4.5"
+      },
+      {
+        "path": "node_modules/data-urls",
+        "before": "7.0.0",
+        "after": "8.0.0"
+      },
+      {
+        "path": "node_modules/get-tsconfig",
+        "before": "5.0.0-beta.4",
+        "after": "5.0.0-beta.6"
+      },
+      {
+        "path": "node_modules/jsdom",
+        "before": "30.1.1",
+        "after": "30.1.3"
+      },
+      {
+        "path": "node_modules/p-queue",
+        "before": "9.3.3",
+        "after": "9.3.5"
+      },
+      {
+        "path": "node_modules/package-manager-detector",
+        "before": "1.8.0",
+        "after": "1.9.0"
+      },
+      {
+        "path": "node_modules/smol-toml",
+        "before": "1.9.0",
+        "after": "1.9.1"
+      },
+      {
+        "path": "node_modules/tinybench",
+        "before": "6.2.0",
+        "after": "6.2.3"
+      },
+      {
+        "path": "node_modules/tr46",
+        "before": "6.0.0",
+        "after": "7.0.0"
+      },
+      {
+        "path": "node_modules/unifont",
+        "before": "0.7.5",
+        "after": "1.0.3"
+      },
+      {
+        "path": "node_modules/verkit",
+        "before": "0.4.1",
+        "after": "0.5.0"
+      },
+      {
+        "path": "node_modules/vitest",
+        "before": "5.0.3",
+        "after": "5.0.5"
+      },
+      {
+        "path": "node_modules/vitest/node_modules/magic-string",
+        "before": "1.4.2",
+        "after": "1.4.5"
+      },
+      {
+        "path": "node_modules/whatwg-url",
+        "before": "17.1.2",
+        "after": "17.3.0"
+      }
+    ],
+    "added": [
+      {
+        "path": "node_modules/@astrojs/markdown-satteri/node_modules/@astrojs/internal-helpers",
+        "version": "0.13.0"
+      },
+      {
+        "path": "node_modules/@vitest/mocker",
+        "version": "5.0.5"
+      },
+      {
+        "path": "node_modules/@vitest/mocker/node_modules/estree-walker",
+        "version": "3.0.3"
+      },
+      {
+        "path": "node_modules/@vitest/mocker/node_modules/magic-string",
+        "version": "1.4.5"
+      },
+      {
+        "path": "node_modules/astro/node_modules/@astrojs/internal-helpers",
+        "version": "0.13.0"
+      },
+      {
+        "path": "node_modules/astro/node_modules/devalue",
+        "version": "6.0.3"
+      },
+      {
+        "path": "node_modules/astro/node_modules/es-module-lexer",
+        "version": "3.0.4"
+      },
+      {
+        "path": "node_modules/fnv1a-64",
+        "version": "0.1.2"
+      },
+      {
+        "path": "node_modules/tinyps",
+        "version": "0.5.1"
+      }
+    ],
+    "removed": [
+      {
+        "path": "node_modules/@esbuild/aix-ppc64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/android-arm",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/android-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/android-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/darwin-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/darwin-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/freebsd-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/freebsd-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-arm",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-ia32",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-loong64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-mips64el",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-ppc64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-riscv64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-s390x",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/linux-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/netbsd-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/netbsd-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/openbsd-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/openbsd-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/openharmony-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/sunos-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/win32-arm64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/win32-ia32",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/@esbuild/win32-x64",
+        "version": "0.28.2",
+        "optional": true
+      },
+      {
+        "path": "node_modules/data-urls/node_modules/whatwg-url",
+        "version": "16.0.1",
+        "optional": false
+      },
+      {
+        "path": "node_modules/esbuild",
+        "version": "0.28.2",
+        "optional": false
+      },
+      {
+        "path": "node_modules/find-proc",
+        "version": "0.2.0",
+        "optional": false
+      },
+      {
+        "path": "node_modules/ohash",
+        "version": "2.0.12",
+        "optional": false
+      },
+      {
+        "path": "node_modules/vitest/node_modules/@vitest/mocker",
+        "version": "5.0.3",
+        "optional": false
+      },
+      {
+        "path": "node_modules/vitest/node_modules/estree-walker",
+        "version": "3.0.3",
+        "optional": false
+      },
+      {
+        "path": "node_modules/vitest/node_modules/obug",
+        "version": "2.2.1",
+        "optional": false
+      }
+    ]
+  },
+  "installed": {
+    "installed": 406,
+    "mismatch": [],
+    "missing": [],
+    "node": "v26.13.0",
+    "engine": "^22.23.4 || ^24.22.1 || >=26.12.1",
+    "nodeTests": [
+      ["22.23.3", false],
+      ["22.23.4", true],
+      ["24.22.0", false],
+      ["24.22.1", true],
+      ["26.12.0", false],
+      ["26.12.1", true],
+      ["23.0.0", false],
+      ["25.0.0", false],
+      ["26.13.0", true]
+    ]
+  },
+  "auditBefore": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 260,
+        "dev": 169,
+        "optional": 165,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 555
+      }
+    }
+  },
+  "auditAfter": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 263,
+        "dev": 168,
+        "optional": 139,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 531
+      }
+    }
+  },
+  "signatures": {
+    "invalid": [],
+    "missing": []
+  },
+  "supplyChain": {
+    "entries": 531,
+    "allOfficialRegistry": true,
+    "allIntegrity": true,
+    "ignoreScripts": true,
+    "metadata": [
+      {
+        "name": "@asamuzakjp/dom-selector",
+        "version": "10.0.5",
+        "repository": {
+          "url": "git+https://github.com/asamuzaK/domSelector.git",
+          "type": "git"
+        },
+        "maintainers": ["asamuzakjp"],
+        "tarball": "https://registry.npmjs.org/@asamuzakjp/dom-selector/-/dom-selector-10.0.5.tgz",
+        "integrity": "sha512-EgmJ7oEaGQECTn3H3wmnQpEy4hKY66VvM7VQndwPIQob3p877BgbyOUE3EX0LgXQCciF2H8KMdR+RznqjMNOLw==",
+        "signatureCount": 2,
+        "provenanceOffered": false,
+        "lifecycle": {}
+      },
+      {
+        "name": "@astrojs/markdown-satteri",
+        "version": "0.4.6",
+        "repository": {
+          "url": "git+https://github.com/withastro/astro.git",
+          "type": "git",
+          "directory": "packages/markdown/satteri"
+        },
+        "maintainers": ["fredkschott", "matthewp"],
+        "tarball": "https://registry.npmjs.org/@astrojs/markdown-satteri/-/markdown-satteri-0.4.6.tgz",
+        "integrity": "sha512-6biKp2lEAYycF3jhv91br+Otyf4EgDFkF1oRL9ks0u/m/YRGmI7XkGQ2MgaM35DslT03f7NtozKtlqfBNkp6bw==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "@astrojs/prism",
+        "version": "4.1.2",
+        "repository": {
+          "url": "git+https://github.com/withastro/astro.git",
+          "type": "git",
+          "directory": "packages/astro-prism"
+        },
+        "maintainers": ["fredkschott", "matthewp"],
+        "tarball": "https://registry.npmjs.org/@astrojs/prism/-/prism-4.1.2.tgz",
+        "integrity": "sha512-jMrUEpFDarDO1KWPvVc9eSa8DSfwBlwEOHwX+8zvZQpiqXRGDxFnOXHsYqV6DP7w+0qIgTr98gS1GdQlm8ypWg==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "@astrojs/telemetry",
+        "version": "3.4.2",
+        "repository": {
+          "url": "git+https://github.com/withastro/astro.git",
+          "type": "git",
+          "directory": "packages/telemetry"
+        },
+        "maintainers": ["fredkschott", "matthewp"],
+        "tarball": "https://registry.npmjs.org/@astrojs/telemetry/-/telemetry-3.4.2.tgz",
+        "integrity": "sha512-2JOMRUxJrBSfiVDfeKLv1wBmvSIx1Y6u2YEO8awZ9qSq3u/rNAiUyFdOYi8dHv91kHrmYEQX7pRDw0J4xyj3UA==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "@vitest/spy",
+        "version": "5.0.5",
+        "repository": {
+          "url": "git+https://github.com/vitest-dev/vitest.git",
+          "type": "git",
+          "directory": "packages/spy"
+        },
+        "maintainers": ["ariperkkio", "antfu", "hiogawa", "oreanno", "yyx990803"],
+        "tarball": "https://registry.npmjs.org/@vitest/spy/-/spy-5.0.5.tgz",
+        "integrity": "sha512-lwJRExuH417257Q5wv9QYugN9IMJkoxcrKrYxGPQkBzl7wlNpTUxD/5yNX4ESKVUIShKPgkGchYPFMWOOk0wzw==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "am-i-vibing",
+        "version": "0.5.0",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/ascorbic/am-i-vibing.git",
+          "directory": "packages/am-i-vibing"
+        },
+        "maintainers": ["ascorbic"],
+        "tarball": "https://registry.npmjs.org/am-i-vibing/-/am-i-vibing-0.5.0.tgz",
+        "integrity": "sha512-KLcsDhqf1XRrJmJr+9I/C0EX2K+sGrAGZFgkmd84c8TJO9zJBu+/kFInjazu1KfJWFhWDKdRWkpBzEs7s35DVA==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "astro",
+        "version": "7.4.5",
+        "repository": {
+          "url": "git+https://github.com/withastro/astro.git",
+          "type": "git",
+          "directory": "packages/astro"
+        },
+        "maintainers": ["fredkschott", "matthewp"],
+        "tarball": "https://registry.npmjs.org/astro/-/astro-7.4.5.tgz",
+        "integrity": "sha512-n5lET11/qnrOWn4wNpXxD9g2VKkTIa162hHgrkMPChMQC5q/xh2lY2OerK5mpsEAFCNmXsYA7NISE+9Uo7Cxxg==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "magic-string",
+        "version": "1.4.5",
+        "repository": {
+          "url": "git+https://github.com/Rich-Harris/magic-string.git",
+          "type": "git"
+        },
+        "maintainers": ["mourner", "rich_harris", "alangpierce", "antfu"],
+        "tarball": "https://registry.npmjs.org/magic-string/-/magic-string-1.4.5.tgz",
+        "integrity": "sha512-oLLC2+YvQUfAa+vxoufE/yc1icb87M9iXIRqAoR/2EhE/8cb3SF/+Gi0c2By1B+5Vz2e2vQtUvHiu1+63Znh+w==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "data-urls",
+        "version": "8.0.0",
+        "repository": {
+          "url": "git+https://github.com/jsdom/data-urls.git",
+          "type": "git"
+        },
+        "maintainers": [
+          "timothygu",
+          "domenic",
+          "sebmaster",
+          "zirro",
+          "tmpvar",
+          "joris-van-der-wel"
+        ],
+        "tarball": "https://registry.npmjs.org/data-urls/-/data-urls-8.0.0.tgz",
+        "integrity": "sha512-JQUCCK+/CAGbGGx618PlFZMXH81Jtj7t73CHv9dd/zVWvxgGT2zLFRjnKb+Ng46GIwcy+f7f88qd4duqllK+WQ==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "get-tsconfig",
+        "version": "5.0.0-beta.6",
+        "repository": {
+          "url": "git+https://github.com/privatenumber/get-tsconfig.git",
+          "type": "git"
+        },
+        "maintainers": ["hirokiosame"],
+        "tarball": "https://registry.npmjs.org/get-tsconfig/-/get-tsconfig-5.0.0-beta.6.tgz",
+        "integrity": "sha512-X6fBC0pmImC70gvX2zm56go9hx0MyoGVdG0tUCkg/D+Xnh5TJsOZ7iDbOdI3PvmtrDxnu1YdDufpK2QJX1Meqw==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "jsdom",
+        "version": "30.1.3",
+        "repository": {
+          "url": "git+https://github.com/jsdom/jsdom.git",
+          "type": "git"
+        },
+        "maintainers": [
+          "timothygu",
+          "domenic",
+          "sebmaster",
+          "zirro",
+          "tmpvar",
+          "joris-van-der-wel"
+        ],
+        "tarball": "https://registry.npmjs.org/jsdom/-/jsdom-30.1.3.tgz",
+        "integrity": "sha512-hQMUPvRgN7KxsfIytDQji7bimuJeRQa6Qo5+iuiZQk5CafeRxLIA10/cG5YCBFNpD9RO3oqIiN4CO1Y44kxqXg==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {
+          "prepare": "wireit"
+        }
+      },
+      {
+        "name": "p-queue",
+        "version": "9.3.5",
+        "repository": {
+          "url": "git+https://github.com/sindresorhus/p-queue.git",
+          "type": "git"
+        },
+        "maintainers": ["sindresorhus"],
+        "tarball": "https://registry.npmjs.org/p-queue/-/p-queue-9.3.5.tgz",
+        "integrity": "sha512-Lki/zhXFVmDhesBUn/yHRLW9Bte7mE7xoFHzTR8sIomV7a2z+LxYAPkGvdfidNiu4fKSfjtawixxSHcZci5QcQ==",
+        "signatureCount": 2,
+        "provenanceOffered": false,
+        "lifecycle": {}
+      },
+      {
+        "name": "package-manager-detector",
+        "version": "1.9.0",
+        "repository": {
+          "url": "git+https://github.com/antfu-collective/package-manager-detector.git",
+          "type": "git"
+        },
+        "maintainers": ["antfu", "benmccann", "userquin"],
+        "tarball": "https://registry.npmjs.org/package-manager-detector/-/package-manager-detector-1.9.0.tgz",
+        "integrity": "sha512-zAMfbta9nPA8AKkA4WdmNAT8R8s6Dk0/xwPsqNnRidMFcLo1YkLuPDTgs2f64XdzS8vbLNnoJ+uUIkgbz7oRHA==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "smol-toml",
+        "version": "1.9.1",
+        "repository": {
+          "url": "github:squirrelchat/smol-toml",
+          "type": "git"
+        },
+        "maintainers": ["cyyynthia"],
+        "tarball": "https://registry.npmjs.org/smol-toml/-/smol-toml-1.9.1.tgz",
+        "integrity": "sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "tinybench",
+        "version": "6.2.3",
+        "repository": {
+          "url": "tinylibs/tinybench",
+          "type": "git"
+        },
+        "maintainers": ["aslemammad", "uzlopak", "fraggle"],
+        "tarball": "https://registry.npmjs.org/tinybench/-/tinybench-6.2.3.tgz",
+        "integrity": "sha512-Al01C2JIBnO2CXCAPbpAl6sUiOZHeThGtHYNTa51JRw9PyWOCdr+9Ong05R4qg/Sk3+H645E8ov1h2c58ityNw==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "tr46",
+        "version": "7.0.0",
+        "repository": {
+          "url": "git+https://github.com/jsdom/tr46.git",
+          "type": "git"
+        },
+        "maintainers": [
+          "timothygu",
+          "domenic",
+          "sebmaster",
+          "zirro",
+          "tmpvar",
+          "joris-van-der-wel"
+        ],
+        "tarball": "https://registry.npmjs.org/tr46/-/tr46-7.0.0.tgz",
+        "integrity": "sha512-BcDSDW+SIGWVOns1Zm6Yg91q9AEj7eaID0QDY9oIqJD1A8dscNwMcl9Sms2DeuWCNov1X0/oXanHGYQBSLwZsg==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "unifont",
+        "version": "1.0.3",
+        "repository": {
+          "url": "git+https://github.com/unjs/unifont.git",
+          "type": "git"
+        },
+        "maintainers": ["danielroe", "florian-lefebvre"],
+        "tarball": "https://registry.npmjs.org/unifont/-/unifont-1.0.3.tgz",
+        "integrity": "sha512-XGnEwj5sWdCbiBX01mWLSBncS0yMRjnLygau3IfdOlfjMacNIQvTGW4VH7pWBq+gGWArfSef/CensMLjMmIr/A==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "verkit",
+        "version": "0.5.0",
+        "repository": {
+          "url": "git+https://github.com/sxzz/verkit.git",
+          "type": "git"
+        },
+        "maintainers": ["sxzz"],
+        "tarball": "https://registry.npmjs.org/verkit/-/verkit-0.5.0.tgz",
+        "integrity": "sha512-u4J1hr6Y+C/hit34GwL3eIcUf3wngT8TlYUjK7tk0jxydKLAq3sYvifjdTDA6U3KCKRcQCQDGf/srjxfZF3l7g==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "vitest",
+        "version": "5.0.5",
+        "repository": {
+          "url": "git+https://github.com/vitest-dev/vitest.git",
+          "type": "git",
+          "directory": "packages/vitest"
+        },
+        "maintainers": ["ariperkkio", "antfu", "hiogawa", "oreanno", "yyx990803"],
+        "tarball": "https://registry.npmjs.org/vitest/-/vitest-5.0.5.tgz",
+        "integrity": "sha512-cPODOMF8YnkiiYtDdHo6n4wWmBrOBBbOIYH2d33M4l3CdNn72h+qMmO6uXffUN6A5AZFXNND/d+krS9mgkXRfg==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "whatwg-url",
+        "version": "17.3.0",
+        "repository": {
+          "url": "git+https://github.com/jsdom/whatwg-url.git",
+          "type": "git"
+        },
+        "maintainers": [
+          "timothygu",
+          "domenic",
+          "sebmaster",
+          "zirro",
+          "tmpvar",
+          "joris-van-der-wel"
+        ],
+        "tarball": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-17.3.0.tgz",
+        "integrity": "sha512-KwOAJrpf+GTgBvcBQJcP38sMF0DsQKdwtG+TxM2pW44P6E5k0hDbWrDmyuJDIF0Uef0aQq0ZoJs+5oI+k8ddhg==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {
+          "prepare": "node scripts/transform.js"
+        }
+      },
+      {
+        "name": "@astrojs/internal-helpers",
+        "version": "0.13.0",
+        "repository": {
+          "url": "git+https://github.com/withastro/astro.git",
+          "type": "git",
+          "directory": "packages/internal-helpers"
+        },
+        "maintainers": ["fredkschott", "matthewp"],
+        "tarball": "https://registry.npmjs.org/@astrojs/internal-helpers/-/internal-helpers-0.13.0.tgz",
+        "integrity": "sha512-20jxQqnSmpskcGyad7N5l6Xf1gz0UCa6lNde44bEBdaXGpncEYfAZJ142r2ZgzBaG4dUyzGmhqZWv1INU2eiHQ==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "@vitest/mocker",
+        "version": "5.0.5",
+        "repository": {
+          "url": "git+https://github.com/vitest-dev/vitest.git",
+          "type": "git",
+          "directory": "packages/mocker"
+        },
+        "maintainers": ["ariperkkio", "antfu", "hiogawa", "oreanno", "yyx990803"],
+        "tarball": "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.0.5.tgz",
+        "integrity": "sha512-xLL3lkDegJZw+MGoGaCCsFayDZthGgpAtr3Vziyfc4p7xH89K7KRPcRBBh/kEYm0Aqkt5DtTmkYpBtRV/FrHZg==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "estree-walker",
+        "version": "3.0.3",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/Rich-Harris/estree-walker.git"
+        },
+        "maintainers": ["rich_harris"],
+        "tarball": "https://registry.npmjs.org/estree-walker/-/estree-walker-3.0.3.tgz",
+        "integrity": "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==",
+        "signatureCount": 1,
+        "provenanceOffered": false,
+        "lifecycle": {}
+      },
+      {
+        "name": "devalue",
+        "version": "6.0.3",
+        "repository": {
+          "url": "git+https://github.com/sveltejs/devalue.git",
+          "type": "git"
+        },
+        "maintainers": ["rich_harris", "svelte-admin"],
+        "tarball": "https://registry.npmjs.org/devalue/-/devalue-6.0.3.tgz",
+        "integrity": "sha512-3woMEITftG1wKeO/4d/QXH1DVKctTSZg3jNGPpjp9hNr5Hos8MCFF5McTML5ZtgKDObm2R591B0spRp2IVernA==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "es-module-lexer",
+        "version": "3.0.4",
+        "repository": {
+          "url": "git+https://github.com/guybedford/es-module-lexer.git",
+          "type": "git"
+        },
+        "maintainers": ["guybedford"],
+        "tarball": "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-3.0.4.tgz",
+        "integrity": "sha512-BldNY5mwkVu+cQ5Ymn3e6hB9Sx8XHx4ZevWbiUyZbfKxJxYO27Hf0wfzkxIaD5CAJMaGl3YspKELj0ff/7nCMA==",
+        "signatureCount": 2,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "fnv1a-64",
+        "version": "0.1.2",
+        "repository": {
+          "url": "git+https://github.com/danielroe/fnv1a-64.git",
+          "type": "git"
+        },
+        "maintainers": ["danielroe"],
+        "tarball": "https://registry.npmjs.org/fnv1a-64/-/fnv1a-64-0.1.2.tgz",
+        "integrity": "sha512-mJbcILTPybAR1jdOwt/lVv8N2cffeJFFP+gVbSAwLEx1ujXH27RpPd8Rokec/KX9c76UYIB6Co+H4lQzxPnJfA==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      },
+      {
+        "name": "tinyps",
+        "version": "0.5.1",
+        "repository": {
+          "url": "git+https://github.com/tinylibs/tinyps.git",
+          "type": "git"
+        },
+        "maintainers": ["43081j"],
+        "tarball": "https://registry.npmjs.org/tinyps/-/tinyps-0.5.1.tgz",
+        "integrity": "sha512-B6Ykif5HflC3AdDkS4Zst/2muYVfeXoVMy+KorqH80s/1x4vunIORpNySH681X7fjj+dFM9MDKD6/Hsccjb87Q==",
+        "signatureCount": 1,
+        "provenanceOffered": true,
+        "lifecycle": {}
+      }
+    ]
+  },
+  "validation": {
+    "unit": {
+      "exitCode": 0,
+      "files": 7,
+      "passed": 100
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "files": 35,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "lint": {
+      "exitCode": 0
+    },
+    "skills": {
+      "exitCode": 0,
+      "skills": 1,
+      "references": 14,
+      "errors": []
+    },
+    "e2e": {
+      "exitCode": 0,
+      "browser": "Google Chrome",
+      "passed": 19,
+      "hardware": false
+    },
+    "ssg": {
+      "exitCode": 0,
+      "mode": "static",
+      "output": "/private/tmp/web-ble-security-nov-build-pHKxXM",
+      "site": "https://geroof.github.io",
+      "base": "/web-ble-capture",
+      "pages": [
+        {
+          "locale": "en",
+          "externalScripts": 0,
+          "cspMeta": false
+        },
+        {
+          "locale": "ja",
+          "externalScripts": 0,
+          "cspMeta": false
+        }
+      ],
+      "chunks": [
+        {
+          "file": "App.DhW7rkIx.js",
+          "bytes": 45150,
+          "gzipBytes": 14079
+        },
+        {
+          "file": "ble-client.CWLtvFw8.js",
+          "bytes": 6845,
+          "gzipBytes": 2267
+        },
+        {
+          "file": "client.jrc5mXyS.js",
+          "bytes": 1384,
+          "gzipBytes": 794
+        },
+        {
+          "file": "demo-ble.DRyhtN4g.js",
+          "bytes": 3200,
+          "gzipBytes": 1239
+        },
+        {
+          "file": "preload-helper.CWX-A1Nx.js",
+          "bytes": 12693,
+          "gzipBytes": 5307
+        },
+        {
+          "file": "signals.module.iVkIj_GQ.js",
+          "bytes": 10887,
+          "gzipBytes": 4124
+        }
+      ],
+      "totalJsBytes": 80159,
+      "totalJsGzipBytes": 27810,
+      "communicationApiPatternsFound": false
+    },
+    "jsdomDifferential": {
+      "exitCodeBefore": 0,
+      "exitCodeAfter": 0,
+      "before": {
+        "version": "30.1.1",
+        "safety": {
+          "crossOriginAuthorizationAbsent": false,
+          "crossOriginReturnCookieAbsent": false,
+          "crossOriginReturnResponseCookieIgnored": false
+        },
+        "controls": {
+          "sameOriginAuthorizationPreserved": true,
+          "includeCookieSent": true,
+          "includeCookieStored": true,
+          "sameOriginCookieSent": true,
+          "sameOriginCookieStored": true
+        }
+      },
+      "after": {
+        "version": "30.1.3",
+        "safety": {
+          "crossOriginAuthorizationAbsent": true,
+          "crossOriginReturnCookieAbsent": true,
+          "crossOriginReturnResponseCookieIgnored": true
+        },
+        "controls": {
+          "sameOriginAuthorizationPreserved": true,
+          "includeCookieSent": true,
+          "includeCookieStored": true,
+          "sameOriginCookieSent": true,
+          "sameOriginCookieStored": true
+        }
+      },
+      "allCasesHttp200": true,
+      "allCasesNoJsdomErrors": true,
+      "script": "/private/tmp/web-ble-security-nov-OVR8QN/jsdom-xhr-local-differential.mjs",
+      "localOnly": true
+    },
+    "format": {
+      "exitCode": 0,
+      "matchedFiles": 5
+    }
+  },
+  "scope": {
+    "modified": ["README.md", "docs/spec.md", "package-lock.json", "package.json"],
+    "added": [
+      "docs/agent-logs/2026-11-05_08-00-44_セキュリティアップデート.evidence.json",
+      "docs/agent-logs/2026-11-05_08-00-44_セキュリティアップデート.md"
+    ],
+    "deleted": []
+  },
+  "reviews": {
+    "design": "pass",
+    "source": "pass",
+    "security": "pass",
+    "unresolvedInScopeFindings": 0
+  },
+  "caveats": [
+    "CSP not configured; no independent exploit found.",
+    "BLE hardware not tested.",
+    "Upstream Astro requires get-tsconfig beta.6; the limited exception is documented.",
+    "Pre-existing gensync beta.2 remains unchanged."
+  ]
+}

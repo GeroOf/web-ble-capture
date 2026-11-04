@@ -130,6 +130,6 @@ Astro + Preact + Tailwind CSS を使用し、SSG としてビルドされる。
 - Astro / Vite / Preact / Tailwind CSS / Vitest / oxc は本プロジェクトの固定技術スタックとして維持し、メジャー更新時も SSG、Progressive Enhancement、バックエンド通信なしの制約を壊さない。
 - 依存更新後は `npm run format`、`npm run lint`、`npm test -- --run`、`npm run build` を実行し、静的生成とテストが通ることを確認する。
 - 配布元は `.npmrc` で npm 公式 registry に固定し、インストール時スクリプトは原則抑止する。必要なスクリプトだけ、内容を確認してから実行する。
-- Node.js は `^22.22.2 || ^24.15.0 || >=26.0.0`、npm は9.6.5以上を必要とする。Preact は公式 Astro 連携の対応範囲内の最新10系を使い、型検査の TypeScript は公式 checker が対応する6系を使う。
+- Node.js は `^22.23.4 || ^24.22.1 || >=26.12.1`、npm は9.6.5以上を必要とする。Preact は公式 Astro 連携の対応範囲内の最新10系を使い、型検査の TypeScript は公式 checker が対応する6系を使う。
 - 型検査は `npm run check`、実ブラウザ E2E は `npm run test:e2e` を使う。E2E はインストール済み Google Chrome と模擬 BLE API を使い、新しい一時出力先へビルドする。実機互換性を E2E の成功から推定しない。
-- 採用中の `http-cache-semantics` 4.3.0は、GHSA-ch52-4w7c-c8xpの現在の影響範囲（4.2.0以下）に含まれない。公式advisoryは修正版Noneのままで上流も報告に異議を唱えているため、修正済みとは断定しない。現行SSGでは認証情報を扱う共有HTTPキャッシュを提供せず、Astroの利用はビルド時の画像キャッシュである。2026-10-27の診断0件と影響評価は `docs/agent-logs/2026-10-27_07-46-46_セキュリティアップデート.md` に記録する。
+- `http-cache-semantics` に関する[GHSA-ch52-4w7c-c8xp](https://github.com/advisories/GHSA-ch52-4w7c-c8xp)は、有効な脆弱性ではないとして2026-10-28に撤回された。現在の未修正脆弱性として扱わない。確認結果は `docs/agent-logs/2026-11-05_08-00-44_セキュリティアップデート.md` に記録する。

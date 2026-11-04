@@ -16,7 +16,7 @@ A web-based tool to capture and analyze BLE (Bluetooth Low Energy) network traff
 
 - A modern browser with Web Bluetooth API support (Chrome, Edge, Opera, etc.).
 - A BLE-capable device for real connections. Demo mode also works when Web Bluetooth is unavailable.
-- For local development: Node.js 22.22.2+ within 22.x, 24.15.0+ within 24.x, or 26+, and npm 9.6.5+.
+- For local development: Node.js 22.23.4+ within 22.x, 24.22.1+ within 24.x, or 26.12.1+, and npm 9.6.5+.
 
 ### Installation
 
