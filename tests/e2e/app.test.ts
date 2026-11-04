@@ -31,6 +31,105 @@ afterAll(async () => {
 const sampleSelector = `[data-gatt-uuid="${DEMO_CHARACTERISTIC_UUID}"]`;
 describe("BLE capture", () => {
   it.each([
+    { path: "/", scan: "Scan & Connect", disconnect: "Disconnect", japanese: false },
+    { path: "/ja/", scan: "スキャンして接続", disconnect: "切断", japanese: true },
+  ])("rejects oversized discovery without publishing a partial UI at $path", async (locale) => {
+    const scenarios = [
+      {
+        discovery: { services: 129 },
+        queries: 0,
+        message: locale.japanese
+          ? "サービスがアプリの上限128件を超えたため、探索を中止して切断しました。別の機器を選択してください。"
+          : "Discovery stopped and the device was disconnected because it exceeds the app limit of 128 services. Choose another device.",
+      },
+      {
+        discovery: { services: 2, characteristics: [600, 425] },
+        queries: 2,
+        message: locale.japanese
+          ? "キャラクタリスティックがアプリの合計上限1024件を超えたため、探索を中止して切断しました。別の機器を選択してください。"
+          : "Discovery stopped and the device was disconnected because it exceeds the app limit of 1024 characteristics in total. Choose another device.",
+      },
+    ];
+    for (const scenario of scenarios) {
+      const { page, external, errors } = await openFixture(browser, origin, contexts, {
+        mode: "connected",
+        discovery: scenario.discovery,
+      });
+      await page.goto(origin + locale.path);
+      const scan = page.getByRole("button", { name: locale.scan, exact: true });
+      await scan.click();
+      await page.getByRole("alert").filter({ hasText: scenario.message }).waitFor();
+      expect(await page.locator("[data-service-uuid], [data-gatt-uuid]").count()).toBe(0);
+      expect(await page.getByRole("button", { name: locale.disconnect, exact: true }).count()).toBe(
+        0,
+      );
+      const state = await page.evaluate(() => window.__webBleTest);
+      expect(state.disconnects).toBe(1);
+      expect(state.characteristicQueries).toBe(scenario.queries);
+      expect(await scan.isEnabled()).toBe(true);
+      await page.evaluate(() => {
+        window.__webBleTest.serviceCount = 1;
+        window.__webBleTest.characteristicCounts = [1];
+      });
+      await scan.click();
+      await page.getByRole("button", { name: locale.disconnect, exact: true }).waitFor();
+      expect(await page.locator("[data-gatt-uuid]").count()).toBe(1);
+      expect(await page.getByRole("alert").count()).toBe(0);
+      expect(errors).toEqual([]);
+      expect(external).toEqual([]);
+    }
+  });
+
+  it.each([
+    {
+      path: "/",
+      scan: "Scan & Connect",
+      disconnect: "Disconnect",
+      descriptors: "Load descriptors",
+      read: "Read",
+      message:
+        "Descriptor discovery stopped because this characteristic exceeds the app limit of 128 descriptors. Other operations remain available.",
+    },
+    {
+      path: "/ja/",
+      scan: "スキャンして接続",
+      disconnect: "切断",
+      descriptors: "記述子を表示",
+      read: "読み取り",
+      message:
+        "このキャラクタリスティックの記述子がアプリの上限128件を超えたため、記述子の探索を中止しました。他の操作は続けられます。",
+    },
+  ])("keeps descriptor overflow local and recovers at $path", async (locale) => {
+    const { page, external, errors } = await openFixture(browser, origin, contexts, {
+      mode: "connected",
+      discovery: { characteristics: [2], descriptors: 129 },
+    });
+    await page.goto(origin + locale.path);
+    await page.getByRole("button", { name: locale.scan, exact: true }).click();
+    const first = page.locator("[data-gatt-uuid]").nth(0);
+    const second = page.locator("[data-gatt-uuid]").nth(1);
+    await first.getByRole("button", { name: locale.descriptors, exact: true }).click();
+    await first.getByRole("alert").filter({ hasText: locale.message }).waitFor();
+    expect(await page.locator("[data-descriptor-uuid]").count()).toBe(0);
+    expect(await second.getByRole("alert").count()).toBe(0);
+    expect(
+      await page.getByRole("button", { name: locale.disconnect, exact: true }).isVisible(),
+    ).toBe(true);
+    expect(await page.evaluate(() => window.__webBleTest.disconnects)).toBe(0);
+    await second.getByRole("button", { name: locale.read, exact: true }).click();
+    await page.locator('[data-log-entry="read"]').waitFor();
+    await page.evaluate(() => {
+      window.__webBleTest.descriptorCount = 1;
+    });
+    await first.getByRole("button", { name: locale.descriptors, exact: true }).click();
+    await first.locator("[data-descriptor-uuid]").waitFor();
+    expect(await first.getByRole("alert").count()).toBe(0);
+    expect(await page.evaluate(() => window.__webBleTest.disconnects)).toBe(0);
+    expect(errors).toEqual([]);
+    expect(external).toEqual([]);
+  });
+
+  it.each([
     ["/", "en", "Browser Not Supported", "JavaScript is required to use the Web Bluetooth API."],
     ["/ja/", "ja", "ブラウザ非対応", "Web Bluetooth API を利用するには JavaScript が必要です。"],
   ])(

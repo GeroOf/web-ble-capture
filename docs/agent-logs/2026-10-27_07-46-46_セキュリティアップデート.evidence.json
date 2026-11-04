@@ -1,0 +1,362 @@
+{
+  "date": "2026-10-27",
+  "runtime": {
+    "node": "v26.12.1",
+    "npm": "11.20.0"
+  },
+  "manifestSha256": "37b63b35451d780bfddfb4083c2fb5bb7253e4172e1212991517dd1b769dc2e9",
+  "lockfileSha256": "c02ff3ddd986984ccd82d5ad3de3194b70ccb986048fd188536d88b7fce5f4d9",
+  "manifestAndLockUnchanged": true,
+  "updates": [
+    {
+      "name": "@oxc-project/types",
+      "before": "0.152.0",
+      "after": "0.155.0",
+      "repository": {
+        "url": "git+https://github.com/oxc-project/oxc.git",
+        "type": "git",
+        "directory": "npm/oxc-types"
+      },
+      "maintainers": ["boshen"],
+      "resolved": "https://registry.npmjs.org/@oxc-project/types/-/types-0.155.0.tgz",
+      "integrity": "sha512-SeE8JPwW1xs1tHeNycjUtUBdhorRa8o4jlvjwk49R7/Z291i+4DQa7JJIgOm/TaYQZx+QrPQbVJ/9c8dMIZN8Q==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "@rolldown/binding-darwin-arm64",
+      "before": "1.2.12",
+      "after": "1.2.15",
+      "repository": {
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "type": "git",
+        "directory": "packages/rolldown"
+      },
+      "maintainers": ["broooooklyn", "yyx990803", "rolldownbot", "sapphi-red"],
+      "resolved": "https://registry.npmjs.org/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.15.tgz",
+      "integrity": "sha512-m2WuQ6r0B4OTYxyPpNLtXaMRbRDUbG8YQV2Q3KTdSSK8Th6KHCnC8jVCJt8bvYeSB5WivkkNbc85mKadaSdOxA==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "fast-uri",
+      "before": "3.1.8",
+      "after": "3.1.9",
+      "repository": {
+        "url": "git+https://github.com/fastify/fast-uri.git",
+        "type": "git"
+      },
+      "maintainers": ["jsumners", "delvedor", "matteo.collina", "eomm", "climba03003", "zekth"],
+      "resolved": "https://registry.npmjs.org/fast-uri/-/fast-uri-3.1.9.tgz",
+      "integrity": "sha512-hS/0Wt3Ya043oKXs0sIxrMpKQITXhMLIrVAKKXi4gozGC9v7YRWVnXIZzjNPTO02M9BdxLCWqK1yRXgNziVyJQ==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "http-cache-semantics",
+      "before": "4.2.0",
+      "after": "4.3.0",
+      "repository": {
+        "url": "git+https://github.com/kornelski/http-cache-semantics.git",
+        "type": "git"
+      },
+      "maintainers": ["kornel"],
+      "resolved": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.3.0.tgz",
+      "integrity": "sha512-M5t5LlJpS1UHMjvwRQVdFHvPISGeLAxNcrWuJkeGh0KxsqCHZ1O3NXZU/8x7cD0BDcGW8kapxMKTvwlqrNkHkA==",
+      "signatureCount": 2,
+      "provenanceOffered": false,
+      "installScripts": {}
+    },
+    {
+      "name": "nanoid",
+      "before": "3.3.19",
+      "after": "3.3.20",
+      "repository": {
+        "url": "git+https://github.com/ai/nanoid.git",
+        "type": "git"
+      },
+      "maintainers": ["ai"],
+      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.20.tgz",
+      "integrity": "sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==",
+      "signatureCount": 1,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "postcss",
+      "before": "8.5.28",
+      "after": "8.5.31",
+      "repository": {
+        "url": "git+https://github.com/postcss/postcss.git",
+        "type": "git"
+      },
+      "maintainers": ["ai"],
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.31.tgz",
+      "integrity": "sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==",
+      "signatureCount": 1,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "rolldown",
+      "before": "1.2.12",
+      "after": "1.2.15",
+      "repository": {
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "type": "git",
+        "directory": "packages/rolldown"
+      },
+      "maintainers": ["broooooklyn", "yyx990803", "rolldownbot", "sapphi-red"],
+      "resolved": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.15.tgz",
+      "integrity": "sha512-6odND+fel5zVw3I4Yc2e69gvguDnX0CAAGiNDZSq4ik5WUcaLrkD2GLuog0XcODbor31hZ5ayEMgVDno+KPV5g==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "undici",
+      "before": "8.11.2",
+      "after": "8.12.3",
+      "repository": {
+        "url": "git+https://github.com/nodejs/undici.git",
+        "type": "git"
+      },
+      "maintainers": ["matteo.collina", "ronag", "ethan_arrowood"],
+      "resolved": "https://registry.npmjs.org/undici/-/undici-8.12.3.tgz",
+      "integrity": "sha512-+fdndUTwBP86cVjihTp21hZHo7d6oj1c/47XPA3lL8mM0XHs+C4EkcjmgRsFnFk2f/UONGDy9ItBItmXsLOQHw==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {
+        "prepare": "husky && node ./scripts/platform-shell.js"
+      }
+    },
+    {
+      "name": "vite",
+      "before": "8.3.2",
+      "after": "8.3.5",
+      "repository": {
+        "url": "git+https://github.com/vitejs/vite.git",
+        "type": "git",
+        "directory": "packages/vite"
+      },
+      "maintainers": ["yyx990803", "vitebot"],
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.5.tgz",
+      "integrity": "sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ==",
+      "signatureCount": 2,
+      "provenanceOffered": true,
+      "installScripts": {}
+    },
+    {
+      "name": "zod",
+      "before": "4.6.5",
+      "after": "4.6.7",
+      "repository": {
+        "url": "git+https://github.com/colinhacks/zod.git",
+        "type": "git"
+      },
+      "maintainers": ["colinhacks"],
+      "resolved": "https://registry.npmjs.org/zod/-/zod-4.6.7.tgz",
+      "integrity": "sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==",
+      "signatureCount": 1,
+      "provenanceOffered": true,
+      "installScripts": {}
+    }
+  ],
+  "lockfileSupplyChain": {
+    "distributions": 555,
+    "allResolvedFromOfficialRegistry": true,
+    "allWithIntegrity": true,
+    "hasInstallScript": [
+      {
+        "path": "node_modules/esbuild",
+        "version": "0.28.2"
+      },
+      {
+        "path": "node_modules/fsevents",
+        "version": "2.3.3"
+      }
+    ],
+    "ignoreScripts": true
+  },
+  "auditBeforeLockfile": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 260,
+        "dev": 169,
+        "optional": 165,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 555
+      }
+    }
+  },
+  "auditAfter": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 260,
+        "dev": 169,
+        "optional": 165,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 555
+      }
+    }
+  },
+  "signaturesAfter": {
+    "invalid": [],
+    "missing": []
+  },
+  "installedAfter": {
+    "installed": 405,
+    "mismatches": [],
+    "missingRequired": []
+  },
+  "caveats": [
+    "http-cache-semantics 4.3.0 is outside the currently listed affected range; official advisory still lists no patched version.",
+    "No CSP in inspected repository or public response header; no independent exploit found.",
+    "Hardware BLE not verified."
+  ],
+  "validation": {
+    "unit": {
+      "command": "npm test -- --run",
+      "exitCode": 0,
+      "files": 7,
+      "passed": 100
+    },
+    "typecheck": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "files": 35,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "lint": {
+      "command": "npm run lint -- --deny-warnings",
+      "exitCode": 0
+    },
+    "format": {
+      "changedFiles": 10,
+      "exitCode": 0
+    },
+    "skills": {
+      "command": "npm run skills:check",
+      "exitCode": 0,
+      "skills": 1,
+      "references": 14,
+      "errors": []
+    },
+    "e2e": {
+      "command": "ASTRO_TELEMETRY_DISABLED=1 npm run test:e2e",
+      "exitCode": 0,
+      "browser": "Google Chrome",
+      "passed": 19,
+      "executor": "/root/behavior_feature",
+      "initialRestrictedAttempt": "listen EPERM; 19 skipped; exit 1",
+      "hardware": false
+    },
+    "ssg": {
+      "exitCode": 0,
+      "mode": "static",
+      "output": "/private/tmp/web-ble-security-build-WaHWMM",
+      "base": "/web-ble-capture",
+      "pages": [
+        {
+          "locale": "en",
+          "scripts": 3,
+          "externalScripts": 0,
+          "cspMeta": false
+        },
+        {
+          "locale": "ja",
+          "scripts": 3,
+          "externalScripts": 0,
+          "cspMeta": false
+        }
+      ],
+      "chunks": [
+        {
+          "file": "App.DhW7rkIx.js",
+          "bytes": 45150,
+          "gzipBytes": 14079
+        },
+        {
+          "file": "ble-client.CWLtvFw8.js",
+          "bytes": 6845,
+          "gzipBytes": 2267
+        },
+        {
+          "file": "client.jrc5mXyS.js",
+          "bytes": 1384,
+          "gzipBytes": 794
+        },
+        {
+          "file": "demo-ble.DRyhtN4g.js",
+          "bytes": 3200,
+          "gzipBytes": 1239
+        },
+        {
+          "file": "preload-helper.CWX-A1Nx.js",
+          "bytes": 12693,
+          "gzipBytes": 5307
+        },
+        {
+          "file": "signals.module.iVkIj_GQ.js",
+          "bytes": 10887,
+          "gzipBytes": 4124
+        }
+      ],
+      "totalJsBytes": 80159,
+      "totalJsGzipBytes": 27810,
+      "networkApiPatternsFound": false,
+      "ogImageMatches": true
+    },
+    "sourceScope": {
+      "modified": [
+        "docs/spec.md",
+        "src/components/App.tsx",
+        "src/lib/ble-client.test.ts",
+        "src/lib/ble-client.ts",
+        "src/lib/ble-error.ts",
+        "src/lib/feature-messages.ts",
+        "tests/e2e/app.test.ts",
+        "tests/e2e/helpers.ts"
+      ],
+      "added": [
+        "docs/agent-logs/2026-10-27_07-46-46_セキュリティアップデート.evidence.json",
+        "docs/agent-logs/2026-10-27_07-46-46_セキュリティアップデート.md"
+      ],
+      "deleted": []
+    }
+  },
+  "reviews": {
+    "design": "pass",
+    "source": "pass",
+    "security": "pass",
+    "documents": "pass after correcting the obsolete dependency advisory status",
+    "unresolvedInScopeFindings": 0
+  }
+}

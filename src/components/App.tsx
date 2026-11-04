@@ -145,8 +145,10 @@ function AppContent({ demoDefault }: { demoDefault: boolean }) {
       setDevice(selected, mode, services);
       addLog({ timestamp: Date.now(), type: "info", messageKey: "capture.connected" });
     } catch (error) {
-      manager?.dispose();
-      if (token !== attempt.current) return;
+      if (token !== attempt.current) {
+        manager?.dispose();
+        return;
+      }
       release();
       setError({ messageKey: bleErrorKey(error) });
     }

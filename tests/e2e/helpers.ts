@@ -17,6 +17,11 @@ export interface BrowserFixtureState {
   databaseOpens: number;
   denyRead: boolean;
   writes: number;
+  serviceCount: number;
+  characteristicCounts: number[];
+  descriptorCount: number;
+  disconnects: number;
+  characteristicQueries: number;
 }
 declare global {
   interface Window {
@@ -74,7 +79,16 @@ export async function openFixture(
   browser: Browser,
   origin: string,
   contexts: BrowserContext[],
-  options: { mode?: FixtureMode; javaScriptEnabled?: boolean; blockedStorage?: boolean } = {},
+  options: {
+    mode?: FixtureMode;
+    javaScriptEnabled?: boolean;
+    blockedStorage?: boolean;
+    discovery?: {
+      services?: number;
+      characteristics?: number[];
+      descriptors?: number;
+    };
+  } = {},
 ) {
   const context = await browser.newContext({
     javaScriptEnabled: options.javaScriptEnabled ?? true,
@@ -90,7 +104,7 @@ export async function openFixture(
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.addInitScript(
-    ({ mode, blockedStorage }) => {
+    ({ mode, blockedStorage, discovery }) => {
       Object.defineProperty(navigator, "bluetooth", { configurable: true, value: undefined });
       window.__webBleTest = {
         requests: 0,
@@ -99,6 +113,11 @@ export async function openFixture(
         databaseOpens: 0,
         denyRead: false,
         writes: 0,
+        serviceCount: discovery.services ?? 1,
+        characteristicCounts: discovery.characteristics ?? [mode === "duplicate" ? 2 : 1],
+        descriptorCount: discovery.descriptors ?? 1,
+        disconnects: 0,
+        characteristicQueries: 0,
       };
       Object.defineProperty(navigator, "clipboard", {
         configurable: true,
@@ -172,7 +191,9 @@ export async function openFixture(
           window.__webBleTest.writes++;
         }
         async getDescriptors() {
-          return [this.descriptor];
+          return Array.from({ length: window.__webBleTest.descriptorCount }, (_, index) =>
+            index === 0 ? this.descriptor : new Descriptor(),
+          );
         }
       }
       const characteristic = new Characteristic();
@@ -195,16 +216,24 @@ export async function openFixture(
             return this;
           },
           async getPrimaryServices() {
-            return [
-              {
-                uuid: characteristic.service.uuid,
-                getCharacteristics: async () =>
-                  mode === "duplicate" ? [characteristic, second] : [characteristic],
+            return Array.from({ length: window.__webBleTest.serviceCount }, (_, serviceIndex) => ({
+              uuid: characteristic.service.uuid,
+              getCharacteristics: async () => {
+                window.__webBleTest.characteristicQueries++;
+                return Array.from(
+                  { length: window.__webBleTest.characteristicCounts[serviceIndex] ?? 1 },
+                  (_, index) => {
+                    if (serviceIndex === 0 && index === 0) return characteristic;
+                    if (serviceIndex === 0 && index === 1) return second;
+                    return new Characteristic();
+                  },
+                );
               },
-            ];
+            }));
           },
           disconnect() {
             this.connected = false;
+            window.__webBleTest.disconnects++;
             device.dispatchEvent(new Event("gattserverdisconnected"));
           },
         },
@@ -226,7 +255,11 @@ export async function openFixture(
         },
       });
     },
-    { mode: options.mode ?? "unsupported", blockedStorage: options.blockedStorage ?? false },
+    {
+      mode: options.mode ?? "unsupported",
+      blockedStorage: options.blockedStorage ?? false,
+      discovery: options.discovery ?? {},
+    },
   );
   return { page, external, errors };
 }
