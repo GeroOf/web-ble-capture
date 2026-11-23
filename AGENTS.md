@@ -1,78 +1,18 @@
-# AGENTS.md
+# Web BLE Capture
 
-本ドキュメントは Web アプリケーション(`Web BLE Capture`)向け AGENTS.md である
+ブラウザで BLE Peripheral の GATT 通信を確認する静的アプリ。リポジトリを変更するときは `@.agents/skills/develop-process/SKILL.md` を読む。`@path` はリポジトリルートからのパス。
 
-## 目的（Purpose）
+## 固定制約
 
-本プロジェクトは **Web アプリとして動作する BLE Peripheral 向け簡易ネットワークキャプチャ** を開発することを目的とする。
-本ファイルは、**コーディングエージェント（AI 含む）が遵守すべき設計・実装・運用ルールを定義する唯一の指針**である。
+- Astro、Preact、strict TypeScript、Tailwind CSS、Vite、Vitest、oxc、Web Bluetooth API を使う。
+- 初期 HTML は SSG で生成し、JavaScript 無効でも表示と案内を保つ。BLE は Astro Islands のクライアント側に限り、配信 JS と状態管理を小さく保つ。
+- BLE 操作はユーザー操作から始める。`navigator.bluetooth` を確認し、Safari などの非対応環境を扱う。ペアリング情報、機器情報、パケットは永続化しない。
+- アプリに `fetch`、WebSocket、SSE、外部 API などのバックエンド通信を導入しない。
+- 自動デプロイ、既存ファイルの削除、Git 操作、npm のグローバルインストール、npm 以外でのパッケージ導入は禁止。明示的に許可された例外は、対象と根拠を作業ログに記録する。
 
----
+## 判断の原則
 
-## プロジェクト制約（Hard Constraints）
-
-### 技術スタック（固定）
-
-以下は **変更不可** とする。
-
-- フレームワーク: **Astro**
-- UI: **Preact（宣言的 UI）**
-- 言語: **TypeScript（strict 前提）**
-- スタイリング: **Tailwind CSS**
-- ビルドツール: **Vite**
-- テスト: **Vitest**
-- Linter / Formatter: **oxc**
-- Web API: **Web Bluetooth API**
-- ページ種別: **SSG（Static Site Generation）**
-- 通信制約: **バックエンドとの通信を一切行わない**
-  - `fetch`
-  - WebSocket
-  - SSE
-  - 外部 API 呼び出し
-    → **すべて禁止**
-
----
-
-## 禁止事項（Must Not）
-
-コーディングエージェントは以下を **絶対に行ってはならない**。
-
-- クラウドへの自動デプロイ
-- 既存ファイルの削除
-- Git 操作（commit / push / branch / tag 等）
-- npm の **グローバルインストール**
-- npm 以外のパッケージインストール手段の使用
-  - yarn / pnpm / bun / curl install 等は禁止
-
----
-
-## 基本設計原則（Design Principles）
-
-### 1. SSG + Progressive Enhancement
-
-- 初期 HTML は **完全に静的**
-- Web Bluetooth 機能は **クライアントサイドのみで段階的に有効化**
-- JavaScript 非対応環境でも **壊れない HTML 構造**を維持する
-
-### 2. Web Bluetooth API の扱い
-
-- 必ず **ユーザー操作（click / tap）をトリガー**に使用
-- `navigator.bluetooth` の存在チェックを行う
-- Safari 非対応を前提とした **ガード実装**を行う
-- ペアリング情報・デバイス情報を永続化しない
-
-### 3. パフォーマンスと軽量性
-
-- Astro Islands を利用し、JS 配信は最小化
-- 不要な状態管理ライブラリは導入しない
-- バンドルサイズを常に意識する
-
----
-
-## エージェント・スキル（Agent Skills）への委譲
-
-開発手順、ドキュメント運用ルール、レビュー基準（フロントエンドベストプラクティス2026、セキュリティ等）、およびエージェントの行動原則については、以下のスキル定義を参照し、遵守すること。
-
-- **`develop-process` Skill**: `.agents/skills/develop-process/SKILL.md`
-
-> この AGENTS.md や Agent Skills に反する判断を行う場合、**必ず作業ログへ明示的に例外として記録すること。**
+- **YAGNI**。今回の受け入れ条件に必要な変更に絞り、対象外の既存の振る舞いを保つ。
+- **KISS**。既存の実装・テスト・コマンドを使い、変更の意図を直接読める形にする。
+- **t-wada のテスト駆動開発**。振る舞いの変更はテストリストから一件ずつ Red、Green、Refactor の順で進める。
+- **検査の追加**。入力と実行条件を固定し、期待結果を機械的に照合できる決定論的なハーネスを優先する。

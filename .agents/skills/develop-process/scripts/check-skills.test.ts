@@ -86,6 +86,14 @@ describe("skill structure validation", () => {
     expect(errors).toContain("unreachable");
   });
 
+  it("rejects a broken skill reference in AGENTS.md", () => {
+    const { root, write } = fixture();
+    write("AGENTS.md", "Open `@.agents/skills/old/SKILL.md`.\n");
+    expect(checkSkills(root).errors.join("\n")).toContain(
+      "AGENTS.md: @.agents/skills/old/SKILL.md:",
+    );
+  });
+
   it("rejects traversal and symlinks to files outside the repository", () => {
     const { root, write } = fixture();
     const outside = mkdtempSync(join(tmpdir(), "skills-outside-"));
