@@ -66,6 +66,14 @@ export function checkSkills(directory) {
     report(join(root, "package.json"), error.message);
   }
 
+  const agents = join(root, "AGENTS.md");
+  try {
+    documents.set(agents, readFileSync(agents, "utf8"));
+    edges.set(agents, []);
+  } catch (error) {
+    report(agents, error.message);
+  }
+
   for (const file of files.filter((path) => path.endsWith(".md"))) {
     const text = readFileSync(file, "utf8");
     documents.set(file, text);
@@ -134,7 +142,9 @@ export function checkSkills(directory) {
   }
   for (const file of manifests) visit(file);
   for (const file of documents.keys()) {
-    if (!reached.has(file)) report(file, "reference document is unreachable from SKILL.md");
+    if (file !== agents && !reached.has(file)) {
+      report(file, "reference document is unreachable from SKILL.md");
+    }
   }
   if (!manifests.length) report(skills, "no SKILL.md found");
   return { skills: manifests.length, references: [...edges.values()].flat().length, errors };
